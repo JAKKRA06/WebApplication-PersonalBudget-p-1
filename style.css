@@ -1,6 +1,7 @@
 body
 {
     background-image: url("img/background1.jpg");
+    font-family: 'Lato', sans-serif;
 }
 
 header h2
@@ -8,8 +9,8 @@ header h2
     color: #fff;
     font-size: 36px;
     text-align: center;
-    margin-top: 30px;
-    margin-bottom: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 .description
@@ -17,8 +18,7 @@ header h2
     text-align: center;
     width: 400px;
     background-color: #fff;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
     opacity: 0.8;
     padding: 20px;
     border-radius: 50px;
@@ -85,7 +85,7 @@ h1
     border: 2px solid #000;
     background-color: #fff;
     opacity: 0.8;
-    border-radius: 30px;
+    border-radius: 50px;
     max-width: 1000px;
     padding: 10px;
     font-size: 18px;
@@ -105,17 +105,14 @@ h1
     padding: 5px  20px;
 }
 
-.nav a:first-child
-{
-    margin-left: 10px;
-}
+
 
 .nav a:hover
 {
     color: #fff;
     background-color: #000;
     opacity: 0.5;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 5px 20px;
     text-decoration: none;
 }
@@ -128,10 +125,14 @@ h1
     border: 2px solid #000;
     opacity: 0.8;
     max-width: 1000px;
+    margin-bottom: 20px;
 }
 
-.active {
+.active 
+{
     color: #000;
+    background-color: lightgrey;
+    border-radius: 20px;
     font-weight: 700;
 }
 /* Hide the link that should open and close the topnav on small screens */
@@ -155,7 +156,7 @@ h1
 @media screen and (max-width: 992px) {
  .nav.responsive {position: relative;}
   .nav.responsive a.icon {
-    margin-top: 15px; }
+    }
     
   .nav.responsive a {
     display: block;
@@ -187,7 +188,8 @@ h1
     font-size: 22px;
 }
 
-#przychod
+#income,
+#mainpage
 {
     background-color: #fff;
     border-radius: 50px;
@@ -197,7 +199,7 @@ h1
     margin-right: auto;
 }
 
-#wydatek
+#expense
 {
     background-color: #fff;
     border-radius: 50px;
@@ -207,7 +209,7 @@ h1
     margin-right: auto;
 }
 
-#bilans
+#balance
 {
     background-color: #fff;
     border-radius: 50px;
@@ -217,12 +219,12 @@ h1
     margin-right: auto;
 }
 
-#przychod input
+#income input
 {
     text-align: center;
 }
 
-#wydatek input
+#expense input
 {
     text-align: center;
 }
@@ -329,4 +331,134 @@ background-color: green;
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: 600;
+}
+
+.dropdown
+{
+    float: right;
+}
+
+.dropdown a:hover
+{
+    background-color: lightblue;
+    border-radius: 20px;
+}
+
+.dropdown a
+{
+    text-align: center; 
+}
+
+.dropdown-toggle
+{
+    border-radius: 20px;
+}
+
+span
+{
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.table1
+{
+    border: 3px solid green;
+    border-radius: 20px;
+    min-height: 300px;
+    max-width: 250px;
+    border-collapse: separate;
+    margin: auto;
+}
+
+.table2
+{
+    border: 3px solid red;
+    border-radius: 20px;
+    min-height: 300px;
+    max-width: 250px;
+    border-collapse: separate;
+    margin: auto;
+}
+.comment
+{
+    margin: 20px;
+}
+
+#tableTitle
+{
+    border-bottom: 1px solid;
+    height: 60px;
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+#tableTitleHome
+{
+    max-width: 250px;
+    height: 60px;
+    font-size: 26px;
+    text-align: center;
+    background-color: green;
+    border-radius: 15px;
+}
+
+#tableIncome,
+#tableExpense
+{
+    text-align: left;
+    padding: 0;
+}
+
+td a
+{
+    color: green;
+    display: block;
+}
+
+td a:hover
+{
+    color: red;
+    text-decoration: none;
+    
+}
+
+td p
+{
+    font-size: 18px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+#tableTitleBulb
+{
+    max-width: 250px;
+    height: 60px;
+    font-size: 26px;
+    text-align: center;
+    background-color: lightblue;
+    border-radius: 15px;
+}
+
+#tableTitleHome:hover
+{
+    background-color: green;
+    border-radius: 15px;
+    color: #fff;
+}
+
+#tableTitleBulb:hover
+{
+    background-color: lightblue;
+    border-radius: 15px;
+    color: #fff;
+}
+
+.tableMenu
+{    
+    border: 3px solid grey;
+    border-radius: 20px;
+    min-height: 300px;
+    max-width: 250px;
+    border-collapse: separate;
+    margin: auto;
 }

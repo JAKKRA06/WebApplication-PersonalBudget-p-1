@@ -1,0 +1,5 @@
+
+.icon-right-hand { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe800;&nbsp;'); }
+.icon-angellist { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe801;&nbsp;'); }
+.icon-emo-wink { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe802;&nbsp;'); }
+.icon-hand-pointer-o { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf25a;&nbsp;'); }
