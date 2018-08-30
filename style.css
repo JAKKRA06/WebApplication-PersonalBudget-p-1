@@ -9,7 +9,7 @@ header h2
     color: #fff;
     font-size: 36px;
     text-align: center;
-    margin-top: 40px;
+    margin-top: 50px;
     margin-bottom: 40px;
 }
 
@@ -77,6 +77,19 @@ h1
     text-align: center;
     color: #fff;
     margin-bottom: 20px;
+}
+
+.logger
+{
+    position: absolute;
+    top: 10px;
+    right: 0;
+    background-color: #fff;
+    opacity: 0.9;
+    font-size: 15px;
+    border-radius: 20px;
+    padding: 5px;
+    border: 2px solid #000;
 }
 
 .nav
@@ -189,26 +202,8 @@ h1
 }
 
 #income,
-#mainpage
-{
-    background-color: #fff;
-    border-radius: 50px;
-    text-align: center;
-    padding: 20px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#expense
-{
-    background-color: #fff;
-    border-radius: 50px;
-    text-align: center;
-    padding: 20px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
+#mainpage,
+#expense,
 #balance
 {
     background-color: #fff;
@@ -219,11 +214,7 @@ h1
     margin-right: auto;
 }
 
-#income input
-{
-    text-align: center;
-}
-
+#income input,
 #expense input
 {
     text-align: center;
@@ -231,8 +222,6 @@ h1
 
 select
 {
-    width: 300px;
-    height: 40px;
     border-radius: 15px;
     border: 1px solid #000;
     margin-top: 10px;
@@ -279,7 +268,7 @@ input[type=textAdd]
 
 .add 
 {
-    border-radius: 70%;
+    border-radius: 50%;
     height: 70px;
     width: 70px;
 }
@@ -312,11 +301,6 @@ input[type=textAdd]
     outline: none;
     background-color: lightyellow;
     cursor: pointer;
-}
-
-.custom-select option:focus
-{
-background-color: green;
 }
 
 .row label
