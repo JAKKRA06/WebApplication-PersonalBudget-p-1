@@ -1,3 +1,17 @@
+<?php
+
+		session_start();
+		
+		if (!isset($_SESSION['sign_in']))
+		{
+			header('Location: index.php');
+			exit();
+		}
+		
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="PL">
 <head>
@@ -7,7 +21,7 @@
     <title>Personal Budget</title>
 	
 	<meta name="description" content="Aplikacja do prowadzenia ewidencji własnych wydatków">
-	<meta name="keywords" content="finanse, prowadzenie, budzet, osobisty, bilans, wydatki, przychody, budget">
+	<meta name="keywords" content="finanse, prowadzenie, budzet, osobisty, bilans, wydatki, przychody, budget, domowy">
 	<meta name="author" content="Jakub Krajniewski">
 	<meta http-equiv="X-Ua-Compatible" content="IE=edge">
 	
@@ -21,12 +35,6 @@
     <link rel="stylesheet" href="font/fontello-5b3c0dfc/css/fontello.css">
 
     <script src="funkcje.js" type="text/jscript"></script>
-    
-    
-    
-    
-  
-    
     
 
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
@@ -53,30 +61,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <script>
-window.onload = function() {
+		window.onload = function() {
 
-var chart = new CanvasJS.Chart("chartContainer", {
-	animationEnabled: true,
-	title: {
-		text: "Wykres przedstawia Twoje wydatki z wybranego okresu"
-	},
-	data: [{
-		type: "pie",
-		startAngle: 220,
-		yValueFormatString: "##00.00\"zł\"",
-		indexLabel: "{label} {y}",
-		dataPoints: [
-			{y: 79.45, label: "Mieszkanie"},
-			{y: 7.31, label: "Transport"},
-			{y: 7.06, label: "Jedzenie"},
-			{y: 4.91, label: "Kursy"},
-			{y: 1.26, label: "Opieka medyczna"}
-		]
-	}]
-});
-chart.render();
+		var chart = new CanvasJS.Chart("chartContainer", {
+			animationEnabled: true,
+			title: {
+				text: "Wykres przedstawia Twoje wydatki z wybranego okresu"
+			},
+			data: [{
+				type: "pie",
+				startAngle: 220,
+				yValueFormatString: "##00.00\"zł\"",
+				indexLabel: "{label} {y}",
+				dataPoints: [
+					{y: 79.45, label: "Mieszkanie"},
+					{y: 7.31, label: "Transport"},
+					{y: 7.06, label: "Jedzenie"},
+					{y: 4.91, label: "Kursy"},
+					{y: 1.26, label: "Opieka medyczna"}
+				]
+			}]
+		});
+		chart.render();
 
-}
+		}
 </script>
 
 </head>
@@ -86,7 +94,13 @@ chart.render();
            <div class="row">
              
               <div class="col-sm-12">
-                  <section class="logger">Zalogowany jako: kuba</section>
+                  <section class="logger">
+				  <?php
+					$str = "Witaj ".$_SESSION['user']."!";
+					$str = strtoupper($str);
+					echo $str;
+				  ?>
+				  </section>
               </div>
               
                <div class="col-sm-12">
@@ -108,7 +122,11 @@ chart.render();
                             <a href="#expense" role="tab" data-toggle="tab">Dodaj wydatek</a>
                             <a href="#balance" role="tab" data-toggle="tab">Przeglądaj bilans</a>
                             <a href="#settings" role="tab" data-toggle="tab">Ustawienia</a>
-                            <a href="index.html">Wyloguj</a>
+							<?php
+							
+								echo '<a href="logOut.php">Wyloguj</a>';
+							
+							?>
                             <a href="#javascript:void(0);" class="icon" onclick="myFunction()">
                             <i class="fa fa-bars"></i></a>    
                        </article>  
@@ -126,7 +144,7 @@ chart.render();
                                     </tr>
                                     <tr>
                                         <td><p>Zacznij kontrolować swoje wydatki już dzisiaj! <br><br>
-                                            Dziękuję, że dołączyłes do mojej aplikacji!</p><a href="https://github.com/JAKKRA06" target="_blank"><i class="icon-right-hand"></i>O autorze</a>
+                                            Dziękuję, że dołączyłeś do mojej aplikacji!</p><a href="https://github.com/JAKKRA06" target="_blank"><i class="icon-right-hand"></i>O autorze</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -288,7 +306,7 @@ chart.render();
                                         <td id="tableTitle">PRZYCHODY</td>
                                     </tr>
                                     <tr>
-                                        <td id="tableIncome"><i class="icon-right-hand"></i>Lorem ipsumasdasdasdasdasdasdasdasd dolor sit amet.</td>
+                                        <td id="tableIncome"><i class="icon-right-hand"></i>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem aperiam quisquam ducimus quis ipsum quam aliquam mollitia veritatis dolores ad modi nostrum consequuntur, quos dolorum qui incidunt excepturi. Qui, nam.10 dolor sit amet.</td>
                                     </tr>
                                 </table>
                             </div>

@@ -6,20 +6,22 @@
 
     <title>Personal Budget</title>
 	
-    <meta name="description" content="Aplikacja do prowadzenia ewidencji własnych wydatków">
-	<meta name="keywords" content="finanse, prowadzenie, budzet, osobisty, bilans, wydatki, przychody, budget">
+	<meta name="description" content="Aplikacja do prowadzenia ewidencji własnych wydatków">
+	<meta name="keywords" content="finanse, prowadzenie, budzet, osobisty, bilans, wydatki, przychody, budget, domowy">
 	<meta name="author" content="Jakub Krajniewski">
 	<meta http-equiv="X-Ua-Compatible" content="IE=edge">
 	
 			
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/fontello.css">
+    <script src="funkcje.js" type="text/jscript"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-	
-	<link rel="apple-touch-icon" sizes="57x57" href="favico/apple-icon-57x57.png">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="favico/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="favico/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="favico/apple-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="76x76" href="favico/apple-icon-76x76.png">
@@ -36,7 +38,6 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    
 
 </head>
 <body>
@@ -51,14 +52,9 @@
            <div class="row">
                <div class="col-sm-12">
                    <section class="description">
-                        <form action="">
-                          <label for="usr">Nazwa użytkownika:</label>
-                          <input type="textLog" class="form-control" id="usr" placeholder="login" onfocus="this.placeholder=''" onblur="this.placeholder='login'">
-                          <label for="pwd">Hasło:</label>
-                          <input type="password" class="form-control" id="pwd" placeholder="minimum 4 znaki" onfocus="this.placeholder=''" onblur="this.placeholder='minimum 4 znaki'">
-                        </form>
-                       <button class="btn btn-lg btn-success"><a href="menu.html"><i class="icon-logout"></i>    ZALOGUJ</a></button>
-                       <button class="btn btn-lg btn-primary"><a href="index.html"><i class="icon-reply"></i>    POWRÓT</a></button>
+                       <h1>WITAJ !</h1><br/><p>Aby w pełni cieszyć się swoimi oszczędnościami zaloguj się lub dołącz do naszej aplikacji poprzez szybką rejestrację! </p>
+                       <button class="btn btn-lg btn-success"><a href="logowanie.php"><i class="icon-logout"></i>    LOGOWANIE</a></button>
+                       <button class="btn btn-lg btn-danger"><a href="rejestracja.php"><i class="icon-user-plus"></i> REJESTRACJA</a></button>
                    </section>
                </div>
            </div>

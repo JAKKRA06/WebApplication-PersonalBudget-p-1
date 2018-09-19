@@ -1,3 +1,15 @@
+<?php
+		
+		session_start();
+		
+		if (isset($_SESSION['sign_in']) && ($_SESSION['sign_in'] == true))
+		{
+			header('Location: menu.php');
+			exit();
+		}
+
+?>
+
 <!DOCTYPE html>
 <html lang="PL">
 <head>
@@ -6,17 +18,17 @@
 
     <title>Personal Budget</title>
 	
-	<meta name="description" content="Aplikacja do prowadzenia ewidencji własnych wydatków">
-	<meta name="keywords" content="finanse, prowadzenie, budzet, osobisty, bilans, wydatki, przychody, budget">
+    <meta name="description" content="Aplikacja do prowadzenia ewidencji własnych wydatków">
+	<meta name="keywords" content="finanse, prowadzenie, budzet, osobisty, bilans, wydatki, przychody, budget, domowy">
 	<meta name="author" content="Jakub Krajniewski">
 	<meta http-equiv="X-Ua-Compatible" content="IE=edge">
 	
+			
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/fontello.css">
 
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	
 	<link rel="apple-touch-icon" sizes="57x57" href="favico/apple-icon-57x57.png">
@@ -36,6 +48,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    
 
 </head>
 <body>
@@ -50,16 +63,21 @@
            <div class="row">
                <div class="col-sm-12">
                    <section class="description">
-                        <form action="">
+				   
+                        <form method= "post" action="zaloguj.php">
                           <label for="usr">Nazwa użytkownika:</label>
-                          <input type="textLog" class="form-control" id="usr" placeholder="login" onfocus="this.placeholder=''" onblur="this.placeholder='login'">
-                          <label for="pwd">E-mail:</label>
-                          <input type="textLog" class="form-control" id="pwd" placeholder="mail" onfocus="this.placeholder=''" onblur="this.placeholder='mail'">
+                          <input type="text" name= "login" class="form-control" id="usr" placeholder="login" onfocus="this.placeholder=''" onblur="this.placeholder='login'">
                           <label for="pwd">Hasło:</label>
-                          <input type="password" class="form-control" id="pwd" placeholder="minimum 4 znaki" onfocus="this.placeholder=''" onblur="this.placeholder='minimum 4 znaki'">
-                        </form>
-                       <button class="btn btn-lg btn-danger"><a href="menu.html"><i class="icon-user-plus"></i>    DOŁĄCZ</a></button>
-                       <button class="btn btn-lg btn-primary"><a href="index.html"><i class="icon-reply"></i>    POWRÓT</a></button>
+                          <input type="password" name= "password" class="form-control" id="pwd" placeholder="minimum 4 znaki" onfocus="this.placeholder=''" onblur="this.placeholder='minimum 4 znaki'">
+						
+						   <button type="submit" class="btn btn-lg btn-success"></i>    ZALOGUJ</button>
+						   <button class="btn btn-lg btn-primary"><a href="index.php"><i class="icon-reply"></i>    POWRÓT</a></button>
+					   </form>
+					   <?php
+							
+								if (isset($_SESSION['warning']))	echo $_SESSION['warning'];
+					   
+					   ?>
                    </section>
                </div>
            </div>

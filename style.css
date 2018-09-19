@@ -253,14 +253,14 @@ input[type=textAdd]
     background-color: lightyellow;
 }
 
-.btn a
+.btn
 {
     text-decoration: none;
     display: block;
     color: #fff;
 }
 
-.btn a:hover
+.btn:hover
 {
     color: #000;
     text-decoration: none;
@@ -445,4 +445,10 @@ td p
     max-width: 250px;
     border-collapse: separate;
     margin: auto;
+}
+.error
+{
+	color: green;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
