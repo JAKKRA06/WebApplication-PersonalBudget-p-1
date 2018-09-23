@@ -13,6 +13,21 @@ header h2
     margin-bottom: 40px;
 }
 
+header a
+{
+	color: #fff;
+	text-decoration: none;
+}
+
+header a:hover
+{
+	color: #000;
+	text-decoration: none;
+	background-color: white;
+	border-radius: 20px;
+	opacity: 0.5;
+	padding: 0 20px;
+}
 .description
 {
     text-align: center;
@@ -257,6 +272,7 @@ input[type=textAdd]
 {
     text-decoration: none;
     display: block;
+	margin-left: 15px;
     color: #fff;
 }
 
@@ -448,7 +464,7 @@ td p
 }
 .error
 {
-	color: green;
+	color: red;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }

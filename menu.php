@@ -94,11 +94,11 @@
            <div class="row">
              
               <div class="col-sm-12">
-                  <section class="logger">
+                  <section class="logger" style="padding: 5px 20px;">
 				  <?php
-					$str = "Witaj ".$_SESSION['user']."!";
+					$str = $_SESSION['user'];
 					$str = strtoupper($str);
-					echo $str;
+					echo "Witaj: ".'<i>'.$str.'</i>';
 				  ?>
 				  </section>
               </div>

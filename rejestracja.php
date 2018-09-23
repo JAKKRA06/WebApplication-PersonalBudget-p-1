@@ -12,33 +12,127 @@
 		
 		//spr dl nicka
 		
-		if ((strlen($nick) < 3 ) || (strlen($nick) > 20 ))
+		if ((strlen($nick) < 3 ) || (strlen($nick) > 20))
 		{
 				$all_OK = false;
-				$_SESSION['e_nick']="Nick musi posiadać od 3 do 20 znaków!";
+				$_SESSION['e_nick']="Login musi posiadać od 3 do 20 znaków !";
 		}
 		
-		
-		
-		
-		if ($all_OK == true)
+		if (ctype_alnum($nick) == false)
 		{
-			//zaliczone, dodoaj gracza do bazy
-			//insert
-			echo "Udana walidacja!"; exit();
+			$all_OK = false;
+			$_SESSION['e_nick']="Login musi składać się tylko z liter i cyfr (bez polskich znaków) !";
+			
 		}
 		
+		//spr poprawnosc email
+		
+		$email = $_POST['email'];
+		$emailB = filter_var($email, FILTER_SANITIZE_EMAIL);
+		
+		if ((filter_var($emailB, FILTER_VALIDATE_EMAIL) == false) || ($emailB != $email))
+		{
+			$all_OK = false;
+			$_SESSION['e_email']="Podaj poprawny email !";
+		}
+		
+		
+		//spr haslo
+		
+		$password = $_POST['password'];
+		
+		if ((strlen ($password) < 6) || (strlen ($password) > 20))
+		{
+			$all_OK = false;
+			$_SESSION['e_password']="Hasło musi posiadać od 6 do 20 znaków !";
+		}
+		
+		$password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+		
+		//spr captcha
+		
+		$secret = "6LcxbnEUAAAAANEc8gDDoETqH_xtAFGRCo-3V_sF";
+		
+		$check = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
+		
+		$answer = json_decode($check);
+		
+		if ($answer->success == false)
+		{
+			$all_OK = false;
+			$_SESSION['e_boot']="Potwierdź, że nie jesteś robotem !";
+		}
+		
+		//spr czy w bazie istnieje uzytkownik o podanym loginie. Musimy w tym celu polaczy sie z baza
+		// tworzenie zmiennych sesyjnych, ktore beda zapamietane przez formularv przy blednej rejestracji
+		
+		$_SESSION['R_nick'] = $nick;
+		$_SESSION['R_email'] = $email;
+		$_SESSION['R_password'] = $password;
+		
+		require_once "connect.php";
+		
+		mysqli_report(MYSQLI_REPORT_STRICT);
+		try 
+		{
+			$connection = new mysqli($host,	$db_user, $db_password, $db_name);
+			if ($connection->connect_errno != 0)
+			 {
+				 throw new Exception(mysqli_connect_errno());
+			 }
+			else
+			{
+				//czy email wystepuje w bazie
+				$result = $connection->query("SELECT id FROM users WHERE email = '$email'");
+				
+				if (!$result) throw new Exception($connection->error);
+				
+				$how_many_mails = $result->num_rows;
+				if($how_many_mails > 0)
+				{
+					$all_OK = false;
+					$_SESSION['e_email']="Podany e-mail został przypisany do innego konta użytkownika !";
+				}
+				
+				//czy login wystepuje w bazie
+				$result = $connection->query("SELECT id FROM users WHERE username = '$nick'");
+				
+				if (!$result) throw new Exception($connection->error);
+				
+				$how_many_logins = $result->num_rows;
+				if($how_many_logins > 0)
+				{
+					$all_OK = false;
+					$_SESSION['e_nick']="Istnieje już użytkownik o takim loginie !";
+				}
+						
+				if ($all_OK == true)
+				{
+					if ($connection->query("INSERT INTO users VALUES (NULL, '$nick', '$password_hash', '$email')"))
+					{
+						$_SESSION['registration_success']= true;
+						header('Location: welcome.php');
+					}
+					else
+					{
+						throw new Exception($connection->error);
+					}
+				}
+				
+				$connection->close();
+			}
+		}
+		catch(Exception $error)
+		{
+				echo "Błąd serwera ! Przepraszamy za niedogodności i prosimy o rejestrację w innym terminie.";
+		}
 	}
-
-
-
-
 ?>
 
 
-
-<!DOCTYPE html>
-<html lang="PL">
+<!DOCTYPE HTML>
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -77,6 +171,7 @@
     <meta name="theme-color" content="#ffffff">
 
 	<script src='https://www.google.com/recaptcha/api.js'></script>
+
 	
 </head>
 <body>
@@ -84,7 +179,7 @@
         <div class="container">
            <div class="row">
                <div class="col-sm-12">
-                    <header><h2>TWÓJ OSOBISTY MENAGER FINANSÓW</h2></header>
+                    <header><h2><a href="index.php">TWÓJ OSOBISTY MENAGER FINANSÓW</a></h2></header>
                </div>
            </div>
            
@@ -92,9 +187,17 @@
                <div class="col-sm-12">
                    <section class="description">
 				   
-                        <form action="post">
-                          <label>Nazwa użytkownika:</label>
-                          <input type="text" name="nick" class="form-control" placeholder="login" onfocus="this.placeholder=''" onblur="this.placeholder='login'">
+                        <form method="post">
+                        
+							<label for="pwd">Nazwa użytkownika:</label>
+							<input type="text" name="nick" value="<?php
+							if (isset($_SESSION['R_nick'])) 
+							{
+								echo $_SESSION['R_nick'];
+								unset($_SESSION['R_nick']);
+							}
+							?>"
+							id="pwd" class="form-control" placeholder="login" onfocus="this.placeholder=''" onblur="this.placeholder='login'">
 							<?php
 								if(isset($_SESSION['e_nick']))
 								{
@@ -102,22 +205,50 @@
 									unset($_SESSION['e_nick']);
 								}
 							?>
-                          <label for="pwd">E-mail:</label>
-                          <input type="text" name="email" class="form-control" id="pwd" placeholder="e-mail" onfocus="this.placeholder=''" onblur="this.placeholder='e-mail'">
+							
+                          <label for="pwd1">E-mail:</label>
+						  <input type="text" name="email"  value="<?php
+							if (isset($_SESSION['R_email'])) 
+							{
+								echo $_SESSION['R_email'];
+								unset($_SESSION['R_email']);
+							}
+							?>" class="form-control" id="pwd1" placeholder="e-mail" onfocus="this.placeholder=''" onblur="this.placeholder='e-mail'">		
 							<?php
 								if(isset($_SESSION['e_email']))
 								{
 									echo '<div class="error">'.$_SESSION['e_email'].'</div>';
 									unset($_SESSION['e_email']);
 								}
-							?>			
-						 <label for="pwd">Hasło:</label>
-                          <input type="password" name="password" class="form-control" id="pwd" placeholder="minimum 4 znaki" onfocus="this.placeholder=''" onblur="this.placeholder='minimum 4 znaki'">
-						  </br>
-						  <div class="g-recaptcha" data-sitekey="6Lc29nAUAAAAAD1LPXz15-nOvuoejCs5BFb0JwlV"></div>
-						  
-							<button  type="submit" class="btn btn-lg btn-danger"><i class="icon-user-plus"></i>    DOŁĄCZ</button>
-							<button class="btn btn-lg btn-primary"><a href="index.php"><i class="icon-reply"></i>    POWRÓT</a></button>
+							?>
+							
+							<label for="pwd2">Hasło:</label>
+							<input type="password" name="password"  value="<?php
+							if (isset($_SESSION['R_password'])) 
+							{
+								echo $_SESSION['R_password'];
+								unset($_SESSION['R_password']);
+							}
+							?>" class="form-control" id="pwd2" placeholder="minimum 8 znaków" onfocus="this.placeholder=''" onblur="this.placeholder='minimum 8 znaków'">
+							<?php
+								if(isset($_SESSION['e_password']))
+								{
+									echo '<div class="error">'.$_SESSION['e_password'].'</div>';
+									unset($_SESSION['e_password']);
+								}
+							?>
+							<div class="g-recaptcha" data-sitekey="6LcxbnEUAAAAAOn7v_ajv47yLEBrkKaGUISkXUXm"></div>
+							<?php
+								if(isset($_SESSION['e_boot']))
+								{
+									echo '<div class="error">'.$_SESSION['e_boot'].'</div>';
+									unset($_SESSION['e_boot']);
+								}
+							?>
+							
+							<button  type="submit" class="btn btn-lg btn-danger"  style="float:left;"><i class="icon-user-plus"></i>   DOŁĄCZ</button>
+							<button class="btn btn-lg btn-primary"  style="float:left;"><a href="index.php"><i class="icon-reply"></i>    POWRÓT</a></button>
+							<div style="clear: both;"></div>
                         </form>
 						
 
