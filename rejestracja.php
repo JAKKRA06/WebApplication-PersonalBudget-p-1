@@ -111,6 +111,15 @@
 				{
 					if ($connection->query("INSERT INTO users VALUES (NULL, '$nick', '$password_hash', '$email')"))
 					{
+						
+						// kopiowanie tabeli incomes_category_default do incomes_category_assigned_to_user
+						// kopiowanie tabeli expenses_category_default do expenses_category_assigned_to_user
+						
+						
+						
+						
+						
+						
 						$_SESSION['registration_success']= true;
 						header('Location: welcome.php');
 					}
