@@ -58,8 +58,26 @@
 		
 		if ($confirm_income == true)
 		{
-			// wkladanie do basy
-			//instert
+			require_once "connection.php";
+			
+			mysqli_report(MYSQLI_REPORT_STRICT);
+			
+		try 
+		{
+			$connection = new mysqli($host,	$db_user, $db_password, $db_name);
+			if ($connection->connect_errno != 0)
+			 {
+				 throw new Exception(mysqli_connect_errno());
+			 }
+			else
+			{
+				if ($connection->query("INSERT INTO incomes VALUES (NULL, $_SESSION['id_user'],  NULL , $income_amount, $income_date, $income_comment"))
+				{
+					header('Location: menu.php');
+					$_SESSION['income_added']="Dodano nowy przychód !";
+				}
+			}
+			
 		}
 		
 	}
@@ -164,7 +182,18 @@
            
            <div class="row">
               <div class="col-sm-12">
-                  <section><h1>WITAJ !</h1></section>
+                  <section><h1>
+					<?php
+						if(isset($_SESSION['income_added']))
+						{
+							echo '<div class="income_success">'.$_SESSION['income_added'].'</div>';
+							unset($_SESSION['income_added']);
+						}
+						else
+							echo "WITAJ !";
+					?>   
+				  
+				  </h1></section>
               </div>
               
 

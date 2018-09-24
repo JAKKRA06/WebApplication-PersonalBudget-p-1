@@ -87,13 +87,6 @@ input[type=password]
     font-size: 20px;
 }
 
-h1
-{
-    text-align: center;
-    color: #fff;
-    margin-bottom: 20px;
-}
-
 .logger
 {
     position: absolute;
@@ -467,4 +460,11 @@ td p
 	color: red;
 	margin-top: 10px;
 	margin-bottom: 10px;
+}
+
+.income_success
+{
+    text-align: center;
+    color: green;
+    margin-bottom: 20px;
 }
