@@ -8,6 +8,62 @@
 			exit();
 		}
 		
+	if (isset($_POST['income_amount']))
+	{
+		$confirm_income = true;
+		
+		//spr kwoty
+		$amount = $_POST['income_amount'];
+		
+		if (is_numeric($amount) == false)
+		{
+			$confirm_income = false;
+			$_SESSION['i_amount']="Niepoprawna kwota ! Poprawny format: 100.00";
+		}
+		
+		// spr daty 
+		$income_date = $_POST['income_date'];
+
+			
+		$year = substr($income_date, 0, 4);
+		$month=substr($income_date, 5, 2);
+		$day = substr($income_date, 8);
+
+		if (checkdate((int)$month, (int)$day, (int)$year) == false)
+		{
+			$confirm_income = false;
+			$_SESSION['i_date']="Niepoprawna data ! Poprawny format: RRRR-MM-DD.";
+		}
+
+		
+		//spr komentarza max 100 
+		
+		$comment = $_POST['income_comment'];
+		if (strlen($comment) > 100 )
+		{
+			$confirm_income = false;
+			$_SESSION['i_comment']="Komentarz jest zbyt długi ! Max długość komentarza to 100 znaków !";
+		}
+		
+		// spr wyboru listy
+		
+		$payment_method=array("Wynagrodzenie", "Odsetki bankowe", "Sprzedaż na Allegro", "Inne");
+		
+		if (!in_array($_POST['income_select'], $payment_method))
+		{
+			$confirm_income = false;
+			$_SESSION['i_select']="Wybierz przynajmniej jedną kategorię przychodu !";
+		}
+		
+		
+		if ($confirm_income == true)
+		{
+			// wkladanie do basy
+			//instert
+		}
+		
+	}
+
 ?>
 
 <!DOCTYPE html>
@@ -132,7 +188,7 @@
                </div>
                         <!--1 AKŁADKA-->
                     <article class="tab-content">
-                        <section class="tab-pane active" id="mainpage">
+                        <section class="tab-pane" id="mainpage">
                
                         <div class="row">
                             <div class="col-sm-6">
@@ -166,41 +222,70 @@
                         </section>                
                        <!--2 AKŁADKA-->
                        
-                        <article class="tab-pane" id="income">
+                        <article class="tab-pane active" id="income">
                            <section class="title">DODAWANIE PRZYCHODU</section>
-                            <form action="przychod.php" method="post">
+                            <form method="post">
                             
                              <article class="row">
                                  <label class="col-sm-4">Kwota</label>
                                  <div class="col-sm-8">
-                                    <input type="textAdd" class="form-control" id="kwota" placeholder="kwota" onfocus="this.placeholder=''" onblur="this.placeholder='kwota'">
-                                 </div>
+                                    <input type="textAdd" name="income_amount" class="form-control" id="kwota" placeholder="kwota" onfocus="this.placeholder=''" onblur="this.placeholder='kwota'">
+										<?php
+											if(isset($_SESSION['i_amount']))
+											{
+												echo '<div class="error">'.$_SESSION['i_amount'].'</div>';
+												unset($_SESSION['i_amount']);
+											}
+										?>                                  
+								 </div>
                                 </article>
                               
                               <article class="row">
                                   <label class="col-sm-4">Data</label>
                                   <div class="col-sm-8">
-                                      <input type="textAdd" class="form-control" id="data" placeholder="dd-mm-yyyy" onfocus="this.placeholder=''" onblur="this.placeholder='dd-mm-yyyy'">
-                                  </div>
+                                      <input type="textAdd" name="income_date"class="form-control" id="data" placeholder="rrrr-mm-dd" onfocus="this.placeholder=''" onblur="this.placeholder='rrrr-mm-dd'">
+										<?php
+											if(isset($_SESSION['i_date']))
+											{
+												echo '<div class="error">'.$_SESSION['i_date'].'</div>';
+												unset($_SESSION['i_date']);
+											}
+										?>      
+								</div>
+
                                 </article>
                                     
                                 <article class="row">
                                   <label class="col-sm-4">Komentarz</label>
                                   <div class="col-sm-8">
-                                     <input type="textAdd" class="form-control" id="komentarz" placeholder="opcjonalnie" onfocus="this.placeholder=''" onblur="this.placeholder='opcjonalnie'">
-                                    </div>
+                                     <input type="textAdd" name="income_comment"class="form-control" id="komentarz" placeholder="opcjonalnie" onfocus="this.placeholder=''" onblur="this.placeholder='opcjonalnie'">
+										<?php
+											if(isset($_SESSION['i_comment']))
+											{
+												echo '<div class="error">'.$_SESSION['i_comment'].'</div>';
+												unset($_SESSION['i_comment']);
+											}
+										?>  
+									</div>
                                 </article>
                                 
                                  <article class="row">
                                       <label class="col-sm-4">Kategoria</label>
                                       <div class="col-sm-8">
-                                            <select class="custom-select">                                                                     
+                                            <select class="custom-select" name="income_select">                                                                     
                                                 <option selected >Rozwiń</option>
                                                 <option value="Wynagrodzenie" type="text" id="kategoria">Wynagrodzenie</option>
                                                 <option value="Odsetki bankowe">Odsetki bankowe</option>
                                                 <option value="Sprzedaz na Allegro">Sprzedaz na Allegro</option>
                                                 <option value="Inne">Inne</option>
                                             </select>
+												<?php
+													if(isset($_SESSION['i_select']))
+													{
+														echo '<div class="error">'.$_SESSION['i_select'].'</div>';
+														unset($_SESSION['i_select']);
+													}
+												?>  
                                         </div>
                                  </article>
 
@@ -228,7 +313,7 @@
                               <article class=" row">
                                 <label for="data" class="col-sm-4 col-form-label">Data</label>
                                 <div class="col-sm-8">
-                                  <input type="textAdd" class="form-control" id="data" placeholder="dd-mm-yyyy">
+                                  <input type="textAdd" class="form-control" id="data" placeholder="rrrr-mm-dd">
                                 </div>
                               </article>
                               

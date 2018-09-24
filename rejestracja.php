@@ -22,7 +22,6 @@
 		{
 			$all_OK = false;
 			$_SESSION['e_nick']="Login musi składać się tylko z liter i cyfr (bez polskich znaków) !";
-			
 		}
 		
 		//spr poprawnosc email
