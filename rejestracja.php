@@ -238,7 +238,7 @@
 								echo $_SESSION['R_password'];
 								unset($_SESSION['R_password']);
 							}
-							?>" class="form-control" id="pwd2" placeholder="minimum 8 znaków" onfocus="this.placeholder=''" onblur="this.placeholder='minimum 8 znaków'">
+							?>" class="form-control" id="pwd2" placeholder="minimum 6 znaków" onfocus="this.placeholder=''" onblur="this.placeholder='minimum 6 znaków'">
 							<?php
 								if(isset($_SESSION['e_password']))
 								{
@@ -246,7 +246,7 @@
 									unset($_SESSION['e_password']);
 								}
 							?>
-							<div class="g-recaptcha" data-sitekey="6LcxbnEUAAAAAOn7v_ajv47yLEBrkKaGUISkXUXm"></div>
+							<div class="g-recaptcha" data-sitekey="6LcxbnEUAAAAAOn7v_ajv47yLEBrkKaGUISkXUXm" style="margin-top: 20px;"></div>
 							<?php
 								if(isset($_SESSION['e_boot']))
 								{

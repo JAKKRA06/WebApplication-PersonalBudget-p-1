@@ -10,8 +10,6 @@
 		
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="PL">
 <head>
@@ -170,7 +168,7 @@
                        
                         <article class="tab-pane" id="income">
                            <section class="title">DODAWANIE PRZYCHODU</section>
-                            <form action="">
+                            <form action="przychod.php" method="post">
                             
                              <article class="row">
                                  <label class="col-sm-4">Kwota</label>
@@ -206,19 +204,19 @@
                                         </div>
                                  </article>
 
-                            </form>
                               <article class="row">
                                <div class="col-12">
-                                        <button class="btn btn-lg btn-success add"><a href="menu.html"><i class="icon-plus"></i></a></button>       
+                                        <button class="btn btn-lg btn-success add" type="submit"><i class="icon-plus"></i></button>       
                                     </div>
-                                 </article>                        
+                                 </article>   
+                            </form>								 
                             </article>
 
                     
                        <!--3 AKŁADKA-->
                         <article class="tab-pane" id="expense">
                            <section class="title">DODAWANIE WYDATKU</section>
-                            <form action="">
+                            <form method="post" action="wydatek.php">
                              
                               <article class=" row">
                                 <label for="kwota" class="col-sm-4 col-form-label">Kwota</label>
@@ -271,12 +269,12 @@
                                     </select>
                                     </div>
                                 </article>
+								<article class="row">
+								   <div class="col-12">
+										<button type="submit" class="btn btn-lg btn-danger add"><i class="icon-plus"></i></button>
+								   </div>
+								</article>
                              </form>
-                            <article class="row">
-                               <div class="col-12">
-                                    <button class="btn btn-lg btn-danger add"><a href="menu.html"><i class="icon-plus"></i></a></button>
-                               </div>
-                            </article>
                         </article>
 
                        <!--4 AKŁADKA-->
