@@ -4,6 +4,13 @@ body
     font-family: 'Lato', sans-serif;
 }
 
+section h1
+{
+	text-align: center;
+	color: #fff;
+	margin-bottom: 20px;
+}
+
 header h2
 {
     color: #fff;
@@ -466,5 +473,9 @@ td p
 {
     text-align: center;
     color: green;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+	font-size: 15px;
 }
+
+
+	

@@ -1,6 +1,9 @@
 <?php
+		
+		session_start();
 
-
+		
+		
 		if (isset($_POST['income_amount']))
 		{
 			$confirm_income = true;

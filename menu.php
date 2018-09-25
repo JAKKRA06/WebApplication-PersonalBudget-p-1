@@ -108,25 +108,14 @@
            
            <div class="row">
               <div class="col-sm-12">
-                  <section><h1>
-					<?php
-						if(isset($_SESSION['income_added']))
-						{
-							echo '<div class="income_success">'.$_SESSION['income_added'].'</div>';
-							unset($_SESSION['income_added']);
-						}
-						else
-							echo "Nie dodano nic !";
-					?>   
-				  
-				  </h1></section>
+                  <section><h1>Witaj !</h1></section>
               </div>
               
 
                <div class="col-sm-12">
                    <nav class="menu">
                        <article class="nav nav-tabs" id="myTopnav" role="tablist">
-                            <a class="active" href="#mainpage" role="tab" data-toggle="tab">Strona główna</a>
+                            <a href="#mainpage" role="tab" data-toggle="tab">Strona główna</a>
                             <a href="#income" role="tab" data-toggle="tab">Dodaj przychód</a>
                             <a href="#expense" role="tab" data-toggle="tab">Dodaj wydatek</a>
                             <a href="#balance" role="tab" data-toggle="tab">Przeglądaj bilans</a>
@@ -179,6 +168,13 @@
                        
                         <article class="tab-pane active" id="income">
                            <section class="title">DODAWANIE PRZYCHODU</section>
+						<?php
+							if(isset($_SESSION['income_added']))
+							{
+								echo '<div class="income_success">'.$_SESSION['income_added'].'</div>';
+								unset($_SESSION['income_added']);
+							}
+						?>
                             <form method="post" action="przychod.php">
                             
                              <article class="row">
@@ -198,7 +194,13 @@
                               <article class="row">
                                   <label class="col-sm-4">Data</label>
                                   <div class="col-sm-8">
-                                      <input type="textAdd" name="income_date"class="form-control" id="data" placeholder="rrrr-mm-dd" onfocus="this.placeholder=''" onblur="this.placeholder='rrrr-mm-dd'">
+                                      <input type="textAdd" name="income_date"class="form-control" id="data" value="
+										<?php
+											$current_date= new DateTime();
+											 $current_date->format('Y-m-d');
+						
+											?>" placeholder="rrrr-mm-dd" onfocus="this.placeholder=''" onblur="this.placeholder='rrrr-mm-dd'">
+											
 										<?php
 											if(isset($_SESSION['i_date']))
 											{
@@ -215,6 +217,7 @@
                                   <div class="col-sm-8">
                                      <input type="textAdd" name="income_comment"class="form-control" id="komentarz" placeholder="opcjonalnie" onfocus="this.placeholder=''" onblur="this.placeholder='opcjonalnie'">
 										<?php
+
 											if(isset($_SESSION['i_comment']))
 											{
 												echo '<div class="error">'.$_SESSION['i_comment'].'</div>';
@@ -231,7 +234,7 @@
                                                 <option selected >Rozwiń</option>
                                                 <option value="Wynagrodzenie" type="text" id="kategoria">Wynagrodzenie</option>
                                                 <option value="Odsetki bankowe">Odsetki bankowe</option>
-                                                <option value="Sprzedaz na Allegro">Sprzedaz na Allegro</option>
+                                                <option value="Sprzedaż na Allegro">Sprzedaż na Allegro</option>
                                                 <option value="Inne">Inne</option>
                                             </select>
 												<?php
