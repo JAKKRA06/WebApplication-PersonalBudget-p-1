@@ -8,80 +8,6 @@
 			exit();
 		}
 		
-	if (isset($_POST['income_amount']))
-	{
-		$confirm_income = true;
-		
-		//spr kwoty
-		$amount = $_POST['income_amount'];
-		
-		if (is_numeric($amount) == false)
-		{
-			$confirm_income = false;
-			$_SESSION['i_amount']="Niepoprawna kwota ! Poprawny format: 100.00";
-		}
-		
-		// spr daty 
-		$income_date = $_POST['income_date'];
-
-			
-		$year = substr($income_date, 0, 4);
-		$month=substr($income_date, 5, 2);
-		$day = substr($income_date, 8);
-
-		if (checkdate((int)$month, (int)$day, (int)$year) == false)
-		{
-			$confirm_income = false;
-			$_SESSION['i_date']="Niepoprawna data ! Poprawny format: RRRR-MM-DD.";
-		}
-
-		
-		//spr komentarza max 100 
-		
-		$comment = $_POST['income_comment'];
-		if (strlen($comment) > 100 )
-		{
-			$confirm_income = false;
-			$_SESSION['i_comment']="Komentarz jest zbyt długi ! Max długość komentarza to 100 znaków !";
-		}
-		
-		// spr wyboru listy
-		
-		$payment_method=array("Wynagrodzenie", "Odsetki bankowe", "Sprzedaż na Allegro", "Inne");
-		
-		if (!in_array($_POST['income_select'], $payment_method))
-		{
-			$confirm_income = false;
-			$_SESSION['i_select']="Wybierz przynajmniej jedną kategorię przychodu !";
-		}
-		
-		
-		if ($confirm_income == true)
-		{
-			require_once "connection.php";
-			
-			mysqli_report(MYSQLI_REPORT_STRICT);
-			
-		try 
-		{
-			$connection = new mysqli($host,	$db_user, $db_password, $db_name);
-			if ($connection->connect_errno != 0)
-			 {
-				 throw new Exception(mysqli_connect_errno());
-			 }
-			else
-			{
-				if ($connection->query("INSERT INTO incomes VALUES (NULL, $_SESSION['id_user'],  NULL , $income_amount, $income_date, $income_comment"))
-				{
-					header('Location: menu.php');
-					$_SESSION['income_added']="Dodano nowy przychód !";
-				}
-			}
-			
-		}
-		
-	}
-
 ?>
 
 <!DOCTYPE html>
@@ -190,7 +116,7 @@
 							unset($_SESSION['income_added']);
 						}
 						else
-							echo "WITAJ !";
+							echo "Nie dodano nic !";
 					?>   
 				  
 				  </h1></section>
@@ -253,7 +179,7 @@
                        
                         <article class="tab-pane active" id="income">
                            <section class="title">DODAWANIE PRZYCHODU</section>
-                            <form method="post">
+                            <form method="post" action="przychod.php">
                             
                              <article class="row">
                                  <label class="col-sm-4">Kwota</label>
@@ -418,7 +344,9 @@
                                         <td id="tableTitle">PRZYCHODY</td>
                                     </tr>
                                     <tr>
-                                        <td id="tableIncome"><i class="icon-right-hand"></i>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem aperiam quisquam ducimus quis ipsum quam aliquam mollitia veritatis dolores ad modi nostrum consequuntur, quos dolorum qui incidunt excepturi. Qui, nam.10 dolor sit amet.</td>
+                                        <td id="tableIncome"><i class="icon-right-hand"></i>
+										laallaalalalalalsaaaaaaaaaaaaaaaaaaaaaaaaa
+										</td>
                                     </tr>
                                 </table>
                             </div>
@@ -428,7 +356,9 @@
                                         <td id="tableTitle">WYDATKI</td>
                                     </tr>
                                     <tr>
-                                        <td id="tableExpense"><i class="icon-right-hand"></i>Lorem asdasasdasdasdasdasdd asdasipsum dolor sit.</td>
+                                        <td id="tableExpense"><i class="icon-right-hand"></i>
+										aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+										</td>
                                     </tr>
                                 </table>
                             </div>
