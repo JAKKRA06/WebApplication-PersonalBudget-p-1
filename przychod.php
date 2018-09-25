@@ -42,9 +42,9 @@
 			
 			// spr wyboru listy
 			
-			$payment_method=array("Wynagrodzenie", "Odsetki bankowe", "Sprzedaż na Allegro", "Inne");
+			$category=array("Wynagrodzenie", "Odsetki bankowe", "Sprzedaż na Allegro", "Inne");
 			
-			if (!in_array($_POST['income_select'], $payment_method))
+			if (!in_array($_POST['income_select'], $category))
 			{
 				$confirm_income = false;
 				$_SESSION['i_select']="Wybierz przynajmniej jedną kategorię przychodu !";

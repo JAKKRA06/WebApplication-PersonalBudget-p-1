@@ -166,7 +166,7 @@
                         </section>                
                        <!--2 AKŁADKA-->
                        
-                        <article class="tab-pane active" id="income">
+                        <article class="tab-pane" id="income">
                            <section class="title">DODAWANIE PRZYCHODU</section>
 						<?php
 							if(isset($_SESSION['income_added']))
@@ -257,22 +257,43 @@
 
                     
                        <!--3 AKŁADKA-->
-                        <article class="tab-pane" id="expense">
+                        <article class="tab-pane active" id="expense">
                            <section class="title">DODAWANIE WYDATKU</section>
+						 <?php
+							if(isset($_SESSION['expense_added']))
+							{
+								echo '<div class="expense_success">'.$_SESSION['expense_added'].'</div>';
+								unset($_SESSION['expense_added']);
+							}
+						?>
                             <form method="post" action="wydatek.php">
                              
                               <article class=" row">
                                 <label for="kwota" class="col-sm-4 col-form-label">Kwota</label>
                                 <div class="col-sm-8">
                                   <input type="textAdd" class="form-control" id="kwota" placeholder="kwota">
-                                </div>
+									<?php
+										if(isset($_SESSION['e_amount']))
+										{
+											echo '<div class="error">'.$_SESSION['e_amount'].'</div>';
+											unset($_SESSION['e_amount']);
+										}
+									?>                       
+								</div>
                               </article>
                               
                               <article class=" row">
                                 <label for="data" class="col-sm-4 col-form-label">Data</label>
                                 <div class="col-sm-8">
                                   <input type="textAdd" class="form-control" id="data" placeholder="rrrr-mm-dd">
-                                </div>
+									<?php
+										if(isset($_SESSION['e_date']))
+										{
+											echo '<div class="error">'.$_SESSION['e_date'].'</div>';
+											unset($_SESSION['e_date']);
+										}
+									?>          
+								</div>
                               </article>
                               
                                 <article class="row">
@@ -284,6 +305,13 @@
                                         <option value="Kursy">Karta płatnicza</option>
                                         <option value="Kursy">Karta kredytowa</option>
                                       </select>
+										<?php
+											if(isset($_SESSION['e_payment_method']))
+											{
+												echo '<div class="error">'.$_SESSION['e_payment_method'].'</div>';
+												unset($_SESSION['e_payment_method']);
+											}
+										?>  
                                   </div>
                                 </article> 
                               
@@ -310,6 +338,13 @@
                                         <option value="Na złotą jesień, czyli emeryturę">Na złotą jesień, czyli emeryturę</option>
                                         <option value="Inne wydatki">Inne wydatki</option>
                                     </select>
+										<?php
+											if(isset($_SESSION['e_category_select']))
+											{
+												echo '<div class="error">'.$_SESSION['e_category_select'].'</div>';
+												unset($_SESSION['e_category_select']);
+											}
+										?>  
                                     </div>
                                 </article>
 								<article class="row">
