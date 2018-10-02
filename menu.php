@@ -32,7 +32,8 @@
     <link rel="stylesheet" href="css/fontello.css">
     <link rel="stylesheet" href="font/fontello-5b3c0dfc/css/fontello.css">
 
-    <script src="funkcje.js" type="text/jscript"></script>
+    <script src="menuResponsywne.js" type="text/jscript"></script>
+    <script src="pieChart.js" type="text/jscript"></script>
     
 
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
@@ -57,34 +58,7 @@
     
     <script src="funkcje.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
-    <script>
-		window.onload = function() {
-
-		var chart = new CanvasJS.Chart("chartContainer", {
-			animationEnabled: true,
-			title: {
-				text: "Wykres przedstawia Twoje wydatki z wybranego okresu"
-			},
-			data: [{
-				type: "pie",
-				startAngle: 220,
-				yValueFormatString: "##00.00\"zł\"",
-				indexLabel: "{label} {y}",
-				dataPoints: [
-					{y: 79.45, label: "Mieszkanie"},
-					{y: 7.31, label: "Transport"},
-					{y: 7.06, label: "Jedzenie"},
-					{y: 4.91, label: "Kursy"},
-					{y: 1.26, label: "Opieka medyczna"}
-				]
-			}]
-		});
-		chart.render();
-
-		}
-</script>
-
+ 
 </head>
 <body>
     <main>
@@ -92,7 +66,7 @@
            <div class="row">
              
               <div class="col-sm-12">
-                  <section class="logger" style="padding: 5px 20px;">
+                  <section class="logger">
 				  <?php
 					$str = $_SESSION['user'];
 					$str = strtoupper($str);
@@ -108,14 +82,14 @@
            
            <div class="row">
               <div class="col-sm-12">
-                  <section><h1>Witaj !</h1></section>
+                  <section id="hello"><h1>Witaj !</h1></section>
               </div>
               
 
                <div class="col-sm-12">
                    <nav class="menu">
                        <article class="nav nav-tabs" id="myTopnav" role="tablist">
-                            <a href="#mainpage" role="tab" data-toggle="tab">Strona główna</a>
+                            <a href="#mainpage" class="active" role="tab" data-toggle="tab">Strona główna</a>
                             <a href="#income" role="tab" data-toggle="tab">Dodaj przychód</a>
                             <a href="#expense" role="tab" data-toggle="tab">Dodaj wydatek</a>
                             <a href="#balance" role="tab" data-toggle="tab">Przeglądaj bilans</a>
@@ -132,8 +106,20 @@
                </div>
                         <!--1 AKŁADKA-->
                     <article class="tab-content">
-                        <section class="tab-pane" id="mainpage">
-               
+                        <section class="tab-pane active" id="mainpage">
+               			<?php
+							if(isset($_SESSION['income_added']))
+							{
+								echo '<div class="income_success">'.$_SESSION['income_added'].'</div>';
+								unset($_SESSION['income_added']);
+							}
+							
+							if(isset($_SESSION['expense_added']))
+							{
+								echo '<div class="expense_success">'.$_SESSION['expense_added'].'</div>';
+								unset($_SESSION['expense_added']);
+							}
+						?>
                         <div class="row">
                             <div class="col-sm-6">
                                 <table class="tableMenu responsive" >
@@ -168,13 +154,6 @@
                        
                         <article class="tab-pane" id="income">
                            <section class="title">DODAWANIE PRZYCHODU</section>
-						<?php
-							if(isset($_SESSION['income_added']))
-							{
-								echo '<div class="income_success">'.$_SESSION['income_added'].'</div>';
-								unset($_SESSION['income_added']);
-							}
-						?>
                             <form method="post" action="przychod.php">
                             
                              <article class="row">
@@ -257,7 +236,7 @@
 
                     
                        <!--3 AKŁADKA-->
-                        <article class="tab-pane active" id="expense">
+                        <article class="tab-pane" id="expense">
                            <section class="title">DODAWANIE WYDATKU</section>
 						 <?php
 							if(isset($_SESSION['expense_added']))
@@ -271,7 +250,7 @@
                               <article class=" row">
                                 <label for="kwota" class="col-sm-4 col-form-label">Kwota</label>
                                 <div class="col-sm-8">
-                                  <input type="textAdd" class="form-control" id="kwota" placeholder="kwota">
+                                  <input type="textAdd" name="expense_amount" class="form-control"  id="kwota" placeholder="kwota">
 									<?php
 										if(isset($_SESSION['e_amount']))
 										{
@@ -285,7 +264,7 @@
                               <article class=" row">
                                 <label for="data" class="col-sm-4 col-form-label">Data</label>
                                 <div class="col-sm-8">
-                                  <input type="textAdd" class="form-control" id="data" placeholder="rrrr-mm-dd">
+                                  <input type="textAdd" name="expense_date" class="form-control" id="data" placeholder="rrrr-mm-dd">
 									<?php
 										if(isset($_SESSION['e_date']))
 										{
@@ -299,11 +278,11 @@
                                 <article class="row">
                                   <label class="col-sm-4">Sposób płatności</label>
                                   <div class="col-sm-8">
-                                  <select class="custom-select">
+                                  <select class="custom-select" name="expense_payment_method">
                                      <option selected >Rozwiń</option>
-                                        <option value="Mieszkanie">Gotówka</option>
-                                        <option value="Kursy">Karta płatnicza</option>
-                                        <option value="Kursy">Karta kredytowa</option>
+                                        <option value="Gotówka">Gotówka</option>
+                                        <option value="Karta płatnicza">Karta płatnicza</option>
+                                        <option value="Karta kredytowa">Karta kredytowa</option>
                                       </select>
 										<?php
 											if(isset($_SESSION['e_payment_method']))
@@ -318,7 +297,7 @@
                                 <article class="row">
                                   <label class="col-sm-4">Kategoria</label>
                                   <div class="col-sm-8">
-                                  <select class="custom-select">
+                                  <select class="custom-select" name="expense_category_select">
                                      <option selected >Rozwiń</option>
                                         <option value="Mieszkanie">Mieszkanie</option>
                                         <option value="Kursy">Kursy</option>
@@ -383,7 +362,7 @@
                                     </tr>
                                     <tr>
                                         <td id="tableIncome"><i class="icon-right-hand"></i>
-										laallaalalalalalsaaaaaaaaaaaaaaaaaaaaaaaaa
+										laallaalalalalalsaaaaaaaaaaaaaaaa
 										</td>
                                     </tr>
                                 </table>
@@ -395,7 +374,7 @@
                                     </tr>
                                     <tr>
                                         <td id="tableExpense"><i class="icon-right-hand"></i>
-										aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+										aaaaaaaaaaaaaaaaaaaaaaaaaaa
 										</td>
                                     </tr>
                                 </table>

@@ -113,14 +113,24 @@
 						
 						// kopiowanie tabeli incomes_category_default do incomes_category_assigned_to_user
 						// kopiowanie tabeli expenses_category_default do expenses_category_assigned_to_user
+						// kopiowanie tabeli payment_category_default do payment_category_assigned_to_user
+						
+						$result = $connection->query("SELECT * FROM users WHERE username = '$nick'");
+						
+						$row=$result->fetch_assoc();
+						
+						$user_id=$row['id'];
 						
 						
-						
-						
-						
-						
-						$_SESSION['registration_success']= true;
-						header('Location: welcome.php');
+						if ($connection->query("INSERT INTO incomes_category_assigned_to_users VALUES (NULL, '$user_id', (SELECT name FROM incomes_category_default))")) // zwraca 4 wiersze. zrealizowac to w 4 linijkach  tego samego kodu?
+						{					
+							$_SESSION['registration_success']= true;
+							header('Location: welcome.php');				
+						}
+						else
+						{
+							throw new Exception($connection->error);
+						}
 					}
 					else
 					{
@@ -133,7 +143,8 @@
 		}
 		catch(Exception $error)
 		{
-				echo "Błąd serwera ! Przepraszamy za niedogodności i prosimy o rejestrację w innym terminie.";
+				echo '<span style="color:white;">Błąd serwera ! Przepraszamy za niedogodności i prosimy o zalogowanie w innym terminie. </span>';
+				echo $error;
 		}
 	}
 ?>
@@ -254,8 +265,8 @@
 								}
 							?>
 							
-							<button  type="submit" class="btn btn-lg btn-danger"  style="float:left;"><i class="icon-user-plus"></i>   DOŁĄCZ</button>
-							<button class="btn btn-lg btn-primary"  style="float:left;"><a href="index.php"><i class="icon-reply"></i>    POWRÓT</a></button>
+							<button  type="submit" class="btn btn-lg btn-danger"><i class="icon-user-plus"></i>   DOŁĄCZ</button>
+							<button class="btn btn-lg btn-primary"><a href="index.php"><i class="icon-reply"></i>    POWRÓT</a></button>
 							<div style="clear: both;"></div>
                         </form>
 						

@@ -1,8 +1,6 @@
 <?php
 		
 		session_start();
-
-		
 		
 		if (isset($_POST['income_amount']))
 		{
@@ -67,9 +65,10 @@
 					else
 					{
 						//if ($connection->query("INSERT INTO incomes VALUES (NULL, $_SESSION['id_user'],  NULL , $income_amount, $income_date, $income_comment"))
-						//{
-						header('Location: menu.php');
+						
 						$_SESSION['income_added']="Dodano nowy przychód !";
+						$connection->close();
+						header('Location: menu.php');					
 					}
 					
 					$connection->close();

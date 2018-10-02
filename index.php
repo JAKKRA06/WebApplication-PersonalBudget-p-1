@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/fontello.css">
-    <script src="funkcje.js" type="text/jscript"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
@@ -53,8 +52,8 @@
                <div class="col-sm-12">
                    <section class="description">
                        <h1>WITAJ !</h1><br/><p>Aby w pełni cieszyć się swoimi oszczędnościami zaloguj się lub dołącz do naszej aplikacji poprzez szybką rejestrację! </p>
-                       <button class="btn btn-lg btn-success"style="text-align: center;"><a href="logowanie.php"><i class="icon-logout"></i>    LOGOWANIE</a></button>
-                       <button class="btn btn-lg btn-danger" style="text-align: center;"><a href="rejestracja.php"><i class="icon-user-plus"></i> REJESTRACJA</a></button>
+                       <button class="btn btn-lg btn-success"><a href="logowanie.php"><i class="icon-logout"></i>    LOGOWANIE</a></button>
+                       <button class="btn btn-lg btn-danger"><a href="rejestracja.php"><i class="icon-user-plus"></i> REJESTRACJA</a></button>
                    </section>
                </div>
            </div>
