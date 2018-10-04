@@ -64,11 +64,23 @@
 					 }
 					else
 					{
-						//if ($connection->query("INSERT INTO incomes VALUES (NULL, $_SESSION['id_user'],  NULL , $income_amount, $income_date, $income_comment"))
+						$income_select = $_POST['income_select'];
+						$result = $connection->query("SELECT * FROM incomes_category_assigned_to_users WHERE name = '$income_select'");
+						$row = $result->fetch_assoc();
+						$id_income_assigned_to_user = $row['id'];
+						$sign_in_user_id = $_SESSION['id_user'];
 						
-						$_SESSION['income_added']="Dodano nowy przychód !";
-						$connection->close();
-						header('Location: menu.php');					
+						//if ($connection->query("INSERT INTO incomes VALUES (NULL, '$sign_in_user_id',  '$id_income_assigned_to_user' , '$amount', '$income_date', '$comment'"))
+						//{
+						
+							$_SESSION['income_added']="Dodano nowy przychód !";
+							$connection->close();
+							header('Location: menu.php');			
+						//}
+						//else
+						//{
+							throw new Exception($connection->error);
+						//}
 					}
 					
 					$connection->close();

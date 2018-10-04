@@ -122,9 +122,37 @@
 						$user_id=$row['id'];
 						
 						
-						if ($connection->query("INSERT INTO incomes_category_assigned_to_users VALUES (NULL, '$user_id', (SELECT name FROM incomes_category_default))")) // zwraca 4 wiersze. zrealizowac to w 4 linijkach  tego samego kodu?
-						{					
+						if ($connection->query("INSERT INTO incomes_category_assigned_to_users VALUES 
+								(NULL, '$user_id', (SELECT name FROM incomes_category_default WHERE id=1)), 
+								(NULL, '$user_id', (SELECT name FROM incomes_category_default WHERE id=2)),
+								(NULL, '$user_id', (SELECT name FROM incomes_category_default WHERE id=3)), 
+								(NULL, '$user_id', (SELECT name FROM incomes_category_default WHERE id=4))"))	
+						{		
+							$connection->query("INSERT INTO expenses_category_assigned_to_users VALUES 
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=1)), 
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=2)),
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=3)),
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=4)), 
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=5)), 
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=6)), 
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=7)), 
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=8)), 
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=9)), 
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=10)), 
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=11)), 
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=12)), 
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=13)), 
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=14)), 
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=15)), 
+								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=16))");
+								
+							$connection->query("INSERT INTO payment_methods_assigned_to_users VALUES 
+								(NULL, '$user_id', (SELECT name FROM payment_methods_default WHERE id=1)), 
+								(NULL, '$user_id', (SELECT name FROM payment_methods_default WHERE id=2)),
+								(NULL, '$user_id', (SELECT name FROM payment_methods_default WHERE id=3))");
+						
 							$_SESSION['registration_success']= true;
+							$connection->close();
 							header('Location: welcome.php');				
 						}
 						else

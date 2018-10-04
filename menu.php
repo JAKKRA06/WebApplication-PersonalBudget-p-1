@@ -34,6 +34,7 @@
 
     <script src="menuResponsywne.js" type="text/jscript"></script>
     <script src="pieChart.js" type="text/jscript"></script>
+    <script src="currentDate.js" type="text/jscript"></script>
     
 
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
@@ -173,13 +174,7 @@
                               <article class="row">
                                   <label class="col-sm-4">Data</label>
                                   <div class="col-sm-8">
-                                      <input type="textAdd" name="income_date"class="form-control" id="data" value="
-										<?php
-											$current_date= new DateTime();
-											 $current_date->format('Y-m-d');
-						
-											?>" placeholder="rrrr-mm-dd" onfocus="this.placeholder=''" onblur="this.placeholder='rrrr-mm-dd'">
-											
+                                      <input type="textAdd" id = "currentDate" name="income_date" class="form-control" placeholder="rrrr-mm-dd" onfocus="this.placeholder=''" onblur="this.placeholder='rrrr-mm-dd'">
 										<?php
 											if(isset($_SESSION['i_date']))
 											{
@@ -194,7 +189,7 @@
                                 <article class="row">
                                   <label class="col-sm-4">Komentarz</label>
                                   <div class="col-sm-8">
-                                     <input type="textAdd" name="income_comment"class="form-control" id="komentarz" placeholder="opcjonalnie" onfocus="this.placeholder=''" onblur="this.placeholder='opcjonalnie'">
+                                     <input type="textAdd" name="income_comment" class="form-control" id="komentarz" placeholder="opcjonalnie" onfocus="this.placeholder=''" onblur="this.placeholder='opcjonalnie'">
 										<?php
 
 											if(isset($_SESSION['i_comment']))
@@ -264,7 +259,7 @@
                               <article class=" row">
                                 <label for="data" class="col-sm-4 col-form-label">Data</label>
                                 <div class="col-sm-8">
-                                  <input type="textAdd" name="expense_date" class="form-control" id="data" placeholder="rrrr-mm-dd">
+                                  <input type="textAdd" name="expense_date" class="form-control" id="currentDate" placeholder="rrrr-mm-dd">
 									<?php
 										if(isset($_SESSION['e_date']))
 										{
