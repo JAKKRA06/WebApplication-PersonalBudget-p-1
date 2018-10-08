@@ -122,34 +122,11 @@
 						$user_id=$row['id'];
 						
 						
-						if ($connection->query("INSERT INTO incomes_category_assigned_to_users VALUES 
-								(NULL, '$user_id', (SELECT name FROM incomes_category_default WHERE id=1)), 
-								(NULL, '$user_id', (SELECT name FROM incomes_category_default WHERE id=2)),
-								(NULL, '$user_id', (SELECT name FROM incomes_category_default WHERE id=3)), 
-								(NULL, '$user_id', (SELECT name FROM incomes_category_default WHERE id=4))"))	
+						if ($connection->query("INSERT INTO incomes_category_assigned_to_users (user_id, name) SELECT '$user_id', name FROM 				incomes_category_default"))	
 						{		
-							$connection->query("INSERT INTO expenses_category_assigned_to_users VALUES 
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=1)), 
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=2)),
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=3)),
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=4)), 
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=5)), 
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=6)), 
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=7)), 
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=8)), 
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=9)), 
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=10)), 
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=11)), 
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=12)), 
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=13)), 
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=14)), 
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=15)), 
-								(NULL, '$user_id', (SELECT name FROM expenses_category_default WHERE id=16))");
+							$connection->query(" INSERT INTO expenses_category_assigned_to_users (user_id, name) SELECT  '$user_id', name FROM expenses_category_default");
 								
-							$connection->query("INSERT INTO payment_methods_assigned_to_users VALUES 
-								(NULL, '$user_id', (SELECT name FROM payment_methods_default WHERE id=1)), 
-								(NULL, '$user_id', (SELECT name FROM payment_methods_default WHERE id=2)),
-								(NULL, '$user_id', (SELECT name FROM payment_methods_default WHERE id=3))");
+							$connection->query("INSERT INTO payment_methods_assigned_to_users (user_id, name) SELECT '$user_id', name FROM payment_methods_default");
 						
 							$_SESSION['registration_success']= true;
 							$connection->close();

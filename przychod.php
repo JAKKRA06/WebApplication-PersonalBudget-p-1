@@ -40,7 +40,7 @@
 			
 			// spr wyboru listy
 			
-			$category=array("Wynagrodzenie", "Odsetki bankowe", "Sprzedaż na Allegro", "Inne");
+			$category=array("Wynagrodzenie", "Odsetki bankowe", "Allegro", "Inne");
 			
 			if (!in_array($_POST['income_select'], $category))
 			{
@@ -65,22 +65,31 @@
 					else
 					{
 						$income_select = $_POST['income_select'];
-						$result = $connection->query("SELECT * FROM incomes_category_assigned_to_users WHERE name = '$income_select'");
+						$username = $_SESSION['user'];
+						
+						
+						$answer = $connection->query("SELECT * FROM users WHERE username = '$username'");
+						$row_user = $answer->fetch_assoc();
+						$sign_in_user_id = $row_user['id'];
+						
+						
+						$result = $connection->query("SELECT id FROM incomes_category_assigned_to_users WHERE name = '$income_select' AND user_id = '$sign_in_user_id'");
 						$row = $result->fetch_assoc();
 						$id_income_assigned_to_user = $row['id'];
-						$sign_in_user_id = $_SESSION['id_user'];
 						
-						//if ($connection->query("INSERT INTO incomes VALUES (NULL, '$sign_in_user_id',  '$id_income_assigned_to_user' , '$amount', '$income_date', '$comment'"))
-						//{
+						
+						if ($connection->query("INSERT INTO incomes VALUES 
+						(NULL, '$sign_in_user_id',  '$id_income_assigned_to_user', '$amount', '$income_date', '$comment' )"))
+						{
 						
 							$_SESSION['income_added']="Dodano nowy przychód !";
 							$connection->close();
 							header('Location: menu.php');			
-						//}
-						//else
-						//{
+						}
+						else
+						{
 							throw new Exception($connection->error);
-						//}
+						}
 					}
 					
 					$connection->close();
@@ -88,6 +97,7 @@
 				catch (Exception $error)
 				{
 						echo "Błąd serwera ! Przepraszamy za niedogodności i prosimy o dodanie przychodu w innym terminie.";
+						echo $error;
 				}
 			}
 		}

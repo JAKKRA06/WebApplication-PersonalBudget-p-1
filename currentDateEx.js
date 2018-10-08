@@ -12,5 +12,5 @@ window.onload = function getcurrentDate(){
 	
 	var dateString = year + "-" + month + "-" + day;
 
-	document.getElementById('currentDate').value = dateString;
+	document.getElementById('currentDateEx').value = dateString;
 }

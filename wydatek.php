@@ -38,9 +38,16 @@
 				$_SESSION['e_payment_method']="Wybierz przynajmniej jedną kategorię przychodu !";
 			}
 		
+			$comment = $_POST['expense_comment'];
+			if (strlen($comment) > 100 )
+			{
+				$confirm_expense = false;
+				$_SESSION['e_comment']="Komentarz jest zbyt długi ! Max długość komentarza to 100 znaków !";
+			}
+			
 		// kategorii
 	
-			$expense_category=array("Mieszkanie", "Kursy", "Kredyt", "Transport", "Telekomunikacja", "Opieka zdrowotna", "Ubranie", "Higiena", "Dzieci", "Rozrywka", "Wycieczka", "Książki", "Oszczędności", "Spłta długów", "Darowizna", "Na złotą jesień, czyli emeryturę", "Inne wydatki");
+			$expense_category=array("Mieszkanie", "Kredyt", "Transport", "Telekomunikacja", "Opieka zdrowotna", "Ubranie", "Higiena", "Dzieci", "Rozrywka", "Wycieczka", "Książki", "Oszczędności", "Spłta długów", "Darowizna", "Na złotą jesień, czyli emeryturę", "Inne wydatki");
 			
 			if (!in_array($_POST['expense_category_select'], $expense_category))
 			{
@@ -62,13 +69,41 @@
 					 {
 						 throw new Exception(mysqli_connect_errno());
 					 }
-					else
-					{
-						//if ($connection->query("INSERT INTO incomes VALUES (NULL, $_SESSION['id_user'],  NULL , $income_amount, $income_date, $income_comment"))
-					
-						$_SESSION['expense_added']="Dodano nowy wydatek !";
-						$connection->close();
-						header('Location: menu.php');	
+					 else
+					 {
+						 
+						$expense_category_select = $_POST['expense_category_select'];
+						$username = $_SESSION['user'];
+						
+						
+						$answer = $connection->query("SELECT * FROM users WHERE username = '$username'");
+						$row_user = $answer->fetch_assoc();
+						$sign_in_user_id = $row_user['id'];
+						
+						
+						$result = $connection->query("SELECT * FROM expenses_category_assigned_to_users WHERE name = '$expense_category_select' AND user_id = '$sign_in_user_id'");
+						$row = $result->fetch_assoc();
+						$id_expense_assigned_to_user = $row['id'];
+						
+						
+						$expense_payment_method = $_POST['expense_payment_method'];
+						
+						$result_payment = $connection->query("SELECT * FROM payment_methods_assigned_to_users WHERE name = '$expense_payment_method' AND user_id = '$sign_in_user_id'");
+						$row_expense = $result_payment->fetch_assoc();
+						$id_payment_method = $row_expense['id'];
+						
+						if ($connection->query("INSERT INTO expenses VALUES 
+						(NULL, '$sign_in_user_id',  '$id_expense_assigned_to_user', '$id_payment_method', '$amount', '$expense_date', '$comment' )"))
+						{
+						
+							$_SESSION['expense_added']="Dodano nowy wydatek !";
+							$connection->close();
+							header('Location: menu.php');			
+						}
+						else
+						{
+							throw new Exception($connection->error);
+						}
 					}
 					
 					$connection->close();

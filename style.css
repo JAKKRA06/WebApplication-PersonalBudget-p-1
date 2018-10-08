@@ -77,21 +77,48 @@ header a:hover
     color: #000;
 }
 
-.form-control:focus
+.custom-select
 {
-    font-size: 20px;
+    border-radius: 15px;
     color: #000;
-    outline-color: #000;
+    background-color: lightyellow;
+    border: 2px solid #000;
+    font-size: 20px;
+    padding: 0 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.custom-select:focus
+{
+    outline: none;
     background-color: lightyellow;
 }
 
-input[type=textLog],
 input[type=password]
 {
-    border: 1px solid #000;
+    border: 2px solid #000;
     border-radius: 15px;
     color: #000;
     font-size: 20px;
+	background-color: lightyellow;
+}
+
+input[type=text],
+input[type=date]
+{
+    border: 2px solid #000;
+    border-radius: 15px;
+    color: #000;
+    font-size: 20px;
+    padding: 0 10px;
+    background-color: lightyellow;
+}
+
+input[type=text]:focus,
+input[type=password]:focus
+{
+	background-color: lightyellow;
 }
 
 .logger
@@ -235,39 +262,6 @@ input[type=password]
     text-align: center;
 }
 
-select
-{
-    border-radius: 15px;
-    border: 1px solid #000;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-select option
-{
-    background-color: lightyellow;
-}
-
-input[type=text]
-{
-    border: 1px solid #000;
-    border-radius: 15px;
-    color: #000;
-    font-size: 20px;
-    max-width: 400px;
-}
-
-input[type=textAdd]
-{
-    border: 2px solid #000;
-    border-radius: 15px;
-    color: #000;
-    font-size: 20px;
-    padding: 0 10px;
-    background-color: lightyellow;
-}
-
 .btn
 {
     text-decoration: none;
@@ -304,23 +298,6 @@ input[type=textAdd]
     text-decoration: none;
 }
 
-.custom-select
-{
-    border-radius: 15px;
-    color: #000;
-    background-color: lightyellow;
-    border: 2px solid #000;
-    font-size: 20px;
-    padding: 0 10px;
-}
-
-.custom-select:focus
-{
-    outline: none;
-    background-color: lightyellow;
-    cursor: pointer;
-}
-
 .row label
 {
     float: left;
@@ -338,22 +315,26 @@ input[type=textAdd]
 .dropdown
 {
     float: right;
+	border-radius: 20px;
 }
 
-.dropdown a:hover
+.dropPeroid
 {
-    background-color: lightblue;
-    border-radius: 20px;
+	background-color: lightblue;
+	border-radius: 20px;
+	cursor: pointer;
+	padding: 10px;
 }
 
-.dropdown a
+.dropPeroid:focus
+{
+	outline: none;
+	border: none;
+}
+.dropPeroid option:hover
 {
     text-align: center; 
-}
-
-.dropdown-toggle
-{
-    border-radius: 20px;
+	border-radius: 20px;
 }
 
 span
