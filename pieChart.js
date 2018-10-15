@@ -1,5 +1,4 @@
-
-window.onload = function() {
+ function pie(){
 
 var chart = new CanvasJS.Chart("chartContainer", {
 			animationEnabled: true,
@@ -23,3 +22,6 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		chart.render();
 
 }
+
+var elPie = document.getElementById('chartContainer');
+elPie.addEventListener('load', pie, false);

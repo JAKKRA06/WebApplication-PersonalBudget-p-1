@@ -1,0 +1,58 @@
+{
+  "name": "",
+  "css_prefix_text": "icon-",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "587bjlxppui6u4japooa2foe58rsvicp",
+      "css": "pencil",
+      "code": 59392,
+      "src": "modernpics"
+    },
+    {
+      "uid": "39c4d0e225a1263a398a47523cb5b9bd",
+      "css": "brush",
+      "code": 59393,
+      "src": "entypo"
+    },
+    {
+      "uid": "2626e3a1bbcd90e45849af3b58a1d594",
+      "css": "trash",
+      "code": 59394,
+      "src": "entypo"
+    },
+    {
+      "uid": "c709da589c923ba3c2ad48d9fc563e93",
+      "css": "cancel",
+      "code": 59395,
+      "src": "entypo"
+    },
+    {
+      "uid": "14017aae737730faeda4a6fd8fb3a5f0",
+      "css": "check",
+      "code": 59396,
+      "src": "entypo"
+    },
+    {
+      "uid": "8c0ffa714cecbf5144e022d9c3df4a1f",
+      "css": "bank",
+      "code": 61852,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "cddbeffea9d90c5db93d5d3e77b8893e",
+      "css": "cart-plus",
+      "code": 61975,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "dbd39eb5a1d67beb54cfcb535e840e0f",
+      "css": "plus",
+      "code": 59397,
+      "src": "iconic"
+    }
+  ]
+}

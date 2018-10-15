@@ -1,27 +1,22 @@
-var elementDD_1=document.getElementById("BM");
-var elementDD_2=document.getElementById("PM");
-var elementDD_3=document.getElementById("BR");
-var elementDD_4=document.getElementById("NS");
+
+var  elSelectPeroid, elComment;
+elSelectPeroid = document.getElementById('peroid');
+elComment   = document.getElementById('dropDownPeroid');
 
 
+function switchPeroid() {
+		
+	var comment = this.options[this.selectedIndex].value;    
+	  
+	if 				(comment === 'BM') {	elComment.innerHTML = 'Bieżący miesiąc'; pie(); calculateBalance();}
+	else if		 (comment === 'PM'){		elComment.innerHTML = 'Poprzedni miesiąc'; pie(); calculateBalance();}
+	else if 			(comment === 'BR'){	elComment.innerHTML = 'Bieżący rok'; pie(); calculateBalance();}
+	else {
 
-elementDD_1.addEventListener('change', switchPeroid, false);
-elementDD_2.addEventListener('change', switchPeroid, false);
-elementDD_3.addEventListener('click', switchPeroid, false);
-elementDD_4.addEventListener('click', switchPeroid, false);
-
-
-function switchPeroid(){
-	
-	var peroid = this.options[this.selectedIndex].value; 
-	
-	if (elementDD_1) peroid.innerHTML = "Bieżący miesiąc";
-	else if (elementDD_2) peroid.innerHTML = "Poprzedni miesiąc";
-	else if (elementDD_3) peroid.innerHTML = "Bieżący rok";
-	else (elementDD_4) peroid.innerHTML = "Niestandardowy";
-	
-	//if (elementDD_4)
-	
-	
-	
+		elComment.innerHTML = 'Zakres wybranych dat: '  + '<br/>'; pie(); calculateBalance();
+	  }
 }
+
+	elSelectPeroid.addEventListener('change', switchPeroid, false);
+
+

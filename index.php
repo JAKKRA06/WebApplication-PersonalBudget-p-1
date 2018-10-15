@@ -51,7 +51,7 @@
            <div class="row">
                <div class="col-sm-12">
                    <section class="description">
-                       <h1>WITAJ !</h1><br/><p>Aby w pełni cieszyć się swoimi oszczędnościami zaloguj się lub dołącz do naszej aplikacji poprzez szybką rejestrację! </p>
+                       <h1>WITAJ !</h1><br/><p>Aby w pełni cieszyć się swoimi oszczędnościami zaloguj się lub dołącz do mojej aplikacji poprzez szybką rejestrację! </p>
                        <button class="btn btn-lg btn-success"><a href="logowanie.php"><i class="icon-logout"></i>    LOGOWANIE</a></button>
                        <button class="btn btn-lg btn-danger"><a href="rejestracja.php"><i class="icon-user-plus"></i> REJESTRACJA</a></button>
                    </section>

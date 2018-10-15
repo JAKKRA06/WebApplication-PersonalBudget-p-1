@@ -2,7 +2,7 @@
 		
 		session_start();
 		
-		if (isset($_POST['expense_date']))
+		if (isset($_POST['expense_amount']))
 		{
 			$confirm_expense = true;
 			
@@ -71,7 +71,7 @@
 					 }
 					 else
 					 {
-						 
+						$payment_method = $_POST['expense_payment_method'];
 						$expense_category_select = $_POST['expense_category_select'];
 						$username = $_SESSION['user'];
 						
@@ -83,14 +83,18 @@
 						
 						$result = $connection->query("SELECT * FROM expenses_category_assigned_to_users WHERE name = '$expense_category_select' AND user_id = '$sign_in_user_id'");
 						$row = $result->fetch_assoc();
-						$id_expense_assigned_to_user = $row['id'];
+						$id_expense_assigned_to_user = $row['id'];	
 						
 						
-						$expense_payment_method = $_POST['expense_payment_method'];
+						//echo $payment_method;exit(); //daje prawidłowy wynik
+		
+						$result = $connection->query("SELECT * FROM payment_methods_assigned_to_users WHERE name = '$payment_method' AND user_id = '$sign_in_user_id'");
+						$row = $result->fetch_assoc();	
+						$id_payment_method = $row['id'];
 						
-						$result_payment = $connection->query("SELECT * FROM payment_methods_assigned_to_users WHERE name = '$expense_payment_method' AND user_id = '$sign_in_user_id'");
-						$row_expense = $result_payment->fetch_assoc();
-						$id_payment_method = $row_expense['id'];
+						
+						echo $id_payment_method;exit(); // daje pusty wynik
+						
 						
 						if ($connection->query("INSERT INTO expenses VALUES 
 						(NULL, '$sign_in_user_id',  '$id_expense_assigned_to_user', '$id_payment_method', '$amount', '$expense_date', '$comment' )"))

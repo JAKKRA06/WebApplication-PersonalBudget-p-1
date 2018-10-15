@@ -31,10 +31,25 @@
 	<link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/fontello.css">
     <link rel="stylesheet" href="font/fontello-5b3c0dfc/css/fontello.css">
+    <link rel="stylesheet" href="font/fontello_tabela_new/css/fontello.css">
 
+	
+	
+	
+	
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin		=	"anonymous"></script>
 
+	
+	
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	
+	
+	
+	
+	
   
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
@@ -56,8 +71,20 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     
-    <script src="funkcje.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  
+    <script>
+$(document).ready(function(){ //Make script DOM ready
+    $('#peroid').change(function() { //jQuery Change Function
+        var opval = $(this).val(); //Get value from select element
+        if(opval=="NS"){ //Compare it and if true
+            $('#myModal').modal('show'); //Open Modal
+        }
+    });
+});
+  </script>
+  
   
 </head>
 <body>
@@ -124,11 +151,11 @@
                             <div class="col-sm-6">
                                 <table class="tableMenu responsive" >
                                     <tr>
-                                        <td id="tableTitleHome"><i class="icon-home"></i></td>
+                                        <td id="tableTitleHome"><i class="icon-bank"></i></td>
                                     </tr>
                                     <tr>
                                         <td><p>Zacznij kontrolować swoje wydatki już dzisiaj! <br><br>
-                                            Dziękuję, że dołączyłeś do mojej aplikacji!</p><a href="https://github.com/JAKKRA06" target="_blank"><i class="icon-right-hand"></i>O autorze</a>
+                                            Dziękuję, że dołączyłeś do mojej aplikacji!</p><a href="https://github.com/JAKKRA06" target="_blank">O autorze</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -292,23 +319,23 @@
                                   <label class="col-sm-4">Kategoria</label>
                                   <div class="col-sm-8">
                                   <select class="custom-select" name="expense_category_select">
-                                     <option selected >Rozwiń</option>
-                                        <option value="Mieszkanie">Mieszkanie</option>
-                                        <option value="Transport">Transport</option>
-                                        <option value="Telekomunikacja">Telekomunikacja</option>
-                                        <option value="Opieka zdrowotna">Opieka zdrowotna</option>
-                                        <option value="Ubranie">Ubranie</option>
-                                        <option value="Higiena">Higiena</option>
-                                        <option value="Dzieci">Dzieci</option>
-                                        <option value="Rozrywka">Rozrywka</option>
-                                        <option value="Jedzenie">Jedzenie</option>
-                                        <option value="Wycieczka">Wycieczka</option>
-                                        <option value="Książki">Książki</option>
-                                        <option value="Oszczędności">Oszczędności</option>
-                                        <option value="Spłta długów">Spłta długów</option>
-                                        <option value="Darowizna">Darowizna</option>
-                                        <option value="Na złotą jesień, czyli emeryturę">Na złotą jesień, czyli emeryturę</option>
-                                        <option value="Inne wydatki">Inne wydatki</option>
+										<option selected >Rozwiń</option>
+										<option value="Transport">Transport</option>
+										<option value="Książki">Książki</option>
+										<option value="Jedzenie">Jedzenie</option>
+										<option value="Mieszkanie">Mieszkanie</option>
+										<option value="Telekomunikacja">Telekomunikacja</option>
+										<option value="Higiena">Higiena</option>
+										<option value="Ubranie">Ubranie</option>
+										<option value="Opieka zdrowotna">Opieka zdrowotna</option>
+										<option value="Dzieci">Dzieci</option>
+										<option value="Rozrywka">Rozrywka</option>
+										<option value="Wycieczka">Wycieczka</option>
+										<option value="Oszczędności">Oszczędności</option>
+										<option value="Na złotą jesień, czyli emeryturę">Na złotą jesień, czyli emeryturę</option>
+										<option value="Spłta długów">Spłta długów</option>
+										<option value="Darowizna">Darowizna</option>
+										<option value="Inne wydatki">Inne wydatki</option>
                                     </select>
 										<?php
 											if(isset($_SESSION['e_category_select']))
@@ -320,7 +347,7 @@
                                     </div>
                                 </article>
 							
-							<article class="row">
+								<article class="row">
                                   <label class="col-sm-4">Komentarz</label>
                                   <div class="col-sm-8">
                                      <input type="text" name="expense_comment" class="form-control" id="komentarz" placeholder="opcjonalnie" onfocus="this.placeholder=''" onblur="this.placeholder='opcjonalnie'">
@@ -349,19 +376,20 @@
                         <div class="row">
                             <div class="col-sm-12">
                                <section class="dropdown" id="drop">
+							   
                                     <select id="peroid" class="dropPeroid">
-                                    
-                                      <option class="dropdown-item active" id="BM" >Bieżący miesiąc</option>
-                                      <option class="dropdown-item"  id="PM">Poprzedni miesiąc</option>
-                                      <option class="dropdown-item"  id="BR">Bieżący rok</option>
-                                      <option class="dropdown-item"  id="NS">Niestandardowy</option>
-                                    </select>
+										<option value="BM" class="dropdown-item" active >Bieżący miesiąc</option>
+										<option class="dropdown-item"  value="PM">Poprzedni miesiąc</option>
+										<option class="dropdown-item"  value="BR">Bieżący rok</option>
+										<option class="dropdown-item" value="NS" data-toggle="modal" data-target="myModal">Niestandardowy</option>
+									</select>
                                 </section>
+								 
                             </div>
                             <div class="col-md-12">
-                                <section id="dropDownPeroid"><h2><span>Bieżący miesiąc</span></h2></section>
+                                <section id="dropDownPeroid">Bieżący miesiąc</section>
                             </div>
-                        </div>
+                        </div>	
                         
                         <div class="row">
                             <div class="col-sm-6">
@@ -370,8 +398,73 @@
                                         <td id="tableTitle">PRZYCHODY</td>
                                     </tr>
                                     <tr>
-                                        <td id="tableIncome"><i class="icon-right-hand"></i>
-										laallaalalalalalsaaaaaaaaaaaaaaaa
+                                        <td id="tableIncome">
+<?php
+
+	require_once "connect.php";
+
+		mysqli_report(MYSQLI_REPORT_STRICT);
+
+		try 
+		{
+			$connection = new mysqli($host, $db_user, $db_password, $db_name);
+				if ($connection->connect_errno != 0)
+				{
+					throw new Exception(mysqli_connect_errno());
+				}
+				else
+				{
+					$username = $_SESSION['user'];
+					$dateStart = new DateTime('first day of this month');
+					$dateS = $dateStart->format('Y-m-d');
+					
+
+					$dateLast = new DateTime('last day of this month');
+					$dateL = $dateLast->format('Y-m-d');
+
+					$answer = $connection->query("SELECT * FROM users WHERE username = '$username'");
+					$row_user = $answer->fetch_assoc();
+					$sign_in_user_id = $row_user['id'];
+					
+					//obecny miesiac
+					
+					$answer1 = $connection->query("SELECT income_category_assigned_to_user_id, SUM(amount) FROM `incomes` WHERE date_of_income BETWEEN '$dateS' AND '$dateL' AND user_id = '$sign_in_user_id' GROUP BY income_category_assigned_to_user_id ORDER BY SUM(amount) DESC");
+					
+					$result = $connection->query("SELECT SUM(amount) FROM `incomes` WHERE date_of_income BETWEEN '$dateS' AND '$dateL' AND user_id = '$sign_in_user_id' " );
+					$row = $result->fetch_assoc();
+					$sum_all_incomes = $row['SUM(amount)'];
+					
+				if ($answer1->num_rows > 0) {
+						while($row = $answer1->fetch_assoc()) {
+						
+							$income_id_category = $row['income_category_assigned_to_user_id'];
+							$sql = "SELECT * FROM incomes_category_assigned_to_users WHERE id = '$income_id_category'";
+							$answer2 =  $connection->query($sql);
+							$row2 = $answer2->fetch_assoc();
+							$name = $row2['name'];
+							$SUM = $row['SUM(amount)'];
+				
+							echo '<div class="category_list_name">'.$name.'</div>';
+							echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$SUM .'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
+
+						}		
+					}
+					else
+					{
+						//echo "Brak przychodów w wybranym okresie czasu";
+					}
+
+				}
+			$connection->close();
+		}
+
+		catch (Exception $error)
+		{
+			echo "Błąd serwera ! Przepraszamy za niedogodności.";
+			echo $error;
+		}
+?>
+										
 										</td>
                                     </tr>
                                 </table>
@@ -382,8 +475,71 @@
                                         <td id="tableTitle">WYDATKI</td>
                                     </tr>
                                     <tr>
-                                        <td id="tableExpense"><i class="icon-right-hand"></i>
-										aaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                        <td id="tableExpense">
+										<?php
+										
+		mysqli_report(MYSQLI_REPORT_STRICT);
+
+		try 
+		{
+			$connection = new mysqli($host, $db_user, $db_password, $db_name);
+				if ($connection->connect_errno != 0)
+				{
+					throw new Exception(mysqli_connect_errno());
+				}
+				else
+				{
+					$username = $_SESSION['user'];
+					$dateStart = new DateTime('first day of this month');
+					$dateS = $dateStart->format('Y-m-d');
+					
+
+					$dateLast = new DateTime('last day of this month');
+					$dateL = $dateLast->format('Y-m-d');
+
+					$answer = $connection->query("SELECT * FROM users WHERE username = '$username'");
+					$row_user = $answer->fetch_assoc();
+					$sign_in_user_id = $row_user['id'];
+					
+					//obecny miesiac
+					
+					$answer1 = $connection->query("SELECT expense_category_assigned_to_user_id, SUM(amount) FROM `expenses` WHERE date_of_expense BETWEEN '$dateS' AND '$dateL' AND user_id = '$sign_in_user_id' GROUP BY expense_category_assigned_to_user_id ORDER BY SUM(amount) DESC");
+
+					$result = $connection->query("SELECT SUM(amount) FROM `incomes` WHERE date_of_income BETWEEN '$dateS' AND '$dateL' AND user_id = '$sign_in_user_id' " );
+					$row = $result->fetch_assoc();
+					$sum_all_expenses = $row['SUM(amount)'];
+					
+					
+				if ($answer1->num_rows > 0) {
+						while($row = $answer1->fetch_assoc()) {
+						
+							$expense_id_category = $row['expense_category_assigned_to_user_id'];
+							$sql = "SELECT * FROM expenses_category_assigned_to_users WHERE id = '$expense_id_category'";
+							$answer2 =  $connection->query($sql);
+							$row2 = $answer2->fetch_assoc();
+							$name = $row2['name'];
+							$SUM = $row['SUM(amount)'];
+				
+							echo '<div class="category_list_name">'.$name.'</div>';
+							echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$SUM .'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
+
+						}		
+					}
+					else
+					{
+						//echo "Brak przychodów w wybranym okresie czasu";
+					}
+
+				}
+			$connection->close();
+		}
+
+		catch (Exception $error)
+		{
+			echo "Błąd serwera ! Przepraszamy za niedogodności.";
+			echo $error;
+		}
+?>
 										</td>
                                     </tr>
                                 </table>
@@ -392,8 +548,10 @@
                         
                         <div class="row">
                             <div class="col-sm-12">
-                                <section class="comment">
-                                    <h3><span>Komentarz do bilansu</span></h3>
+                                <section class="comment" id="comment">
+                                    <h3 id="comentary"><span>
+									<script src="comment.js"></script>
+									</span></h3>
                                 </section>
                             </div>
                         </div>
@@ -401,7 +559,32 @@
                         <div class="row">
                             <div class="col-sm-12">                                
                                 <articcle>
-                                    <div id="chartContainer" style="height: 470px; margin: 0px auto;" ></div>
+                                    <div id="chartContainer" style="height: 470px; margin: 0px auto;" >
+									<!--<script>
+										function pie(){
+
+										var chart = new CanvasJS.Chart("chartContainer", {
+													animationEnabled: true,
+													title: {
+														text: "Wykres przedstawia Twoje wydatki z bieżącego miesiąca"
+													},
+													data: [{
+														type: "pie",
+														startAngle: 220,
+														yValueFormatString: "##00.00\"zł\"",
+														indexLabel: "{label} {y}",
+														dataPoints:
+														]
+													}]
+												});
+												chart.render();
+
+										}
+										
+										var elPie = document.getElementById('chartContainer');
+										elPie.addEventListener('load', function () { pie();	}, false);
+									</script>-->
+									</div>
                                 </articcle>
                             </div>
                         </div>
@@ -425,16 +608,31 @@
                     
     </main>
 	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog modal-sm" role="document">
+				<div class="modal-content">
+				  <div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">Wybierz przedział czasowy: </h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				  </div>
+				  <div class="modal-body">
+						<form method="post">
+							Od: <input type="date" id="startDate" value="startDate"> <br/><br/>
+							do: <input type="date" id="lastDate" value="lastDate">
+					  
+							<button type="submit" class="btn btn-primary">Potwierdź</button>
+						</form>
+				  </div>
+				</div>
+		  </div>
+	</div>
+  
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin		=	"anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin		=		"anonymous"></script>
 		
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 	<script src="menuResponsywne.js" type="text/jscript"></script>
     <script src="pieChart.js" type="text/jscript"></script>
-    <script src="currentDate.js" type="text/jscript"></script>
     <script src="currentDateEx.js" type="text/jscript"></script>
     <script src="dropDownPeroid.js" type="text/jscript"></script>
 	

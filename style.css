@@ -320,16 +320,18 @@ input[type=password]:focus
 
 .dropPeroid
 {
-	background-color: lightblue;
+	background-color: lightgrey;
 	border-radius: 20px;
 	cursor: pointer;
 	padding: 10px;
+	margin-bottom: 10px;
+	font-size: 20px;
+	font-weight: 600;
 }
 
 .dropPeroid:focus
 {
 	outline: none;
-	border: none;
 }
 .dropPeroid option:hover
 {
@@ -337,10 +339,12 @@ input[type=password]:focus
 	border-radius: 20px;
 }
 
-span
+#dropDownPeroid
 {
     padding: 5px;
     margin-bottom: 20px;
+	font-size: 28px;
+	text-decoration: underline;
 }
 
 .table1
@@ -348,7 +352,7 @@ span
     border: 3px solid green;
     border-radius: 20px;
     min-height: 300px;
-    max-width: 250px;
+    width: 230px;
     border-collapse: separate;
     margin: auto;
 }
@@ -358,7 +362,7 @@ span
     border: 3px solid red;
     border-radius: 20px;
     min-height: 300px;
-    max-width: 250px;
+    width: 230px;
     border-collapse: separate;
     margin: auto;
 }
@@ -389,7 +393,7 @@ span
 #tableExpense
 {
     text-align: left;
-    padding: 0;
+    padding: 5px;
 }
 
 td a
@@ -468,3 +472,37 @@ td p
 	font-size: 20px;	
 }
 	
+#comment
+{
+	font-size: 22px;
+}
+
+.modal-content
+{
+	padding:  0 20px;
+	text-align: center;
+}
+
+.category_list_name
+{
+	text-align: center;
+	font-size: 22px;
+}
+
+.category_list_name:hover
+{
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.icon-pencil,
+.icon-trash
+{
+	cursor: pointer;
+	text-align: right;
+}
+
+.category_list
+{
+
+}
