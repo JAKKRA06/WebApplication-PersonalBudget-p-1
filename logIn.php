@@ -47,13 +47,13 @@
 						else
 						{
 							$_SESSION['warning'] = '<span style="color:red">Nieprawidłowy login lub hasło! </span>';
-							header('Location: logowanie.php');
+							header('Location: logIn.php');
 						}
 					}
 					else
 					{
 						$_SESSION['warning'] = '<span style="color:red">Nieprawidłowy login lub hasło! </span>';
-						header('Location: logowanie.php');
+						header('Location: logIn.php');
 					}
 						
 				}

@@ -13,6 +13,7 @@
 			{
 				$confirm_income = false;
 				$_SESSION['i_amount']="Niepoprawna kwota ! Poprawny format: 100.00";
+				header('Location: menu.php');
 			}
 			
 			// spr daty 
@@ -26,6 +27,7 @@
 			{
 				$confirm_income = false;
 				$_SESSION['i_date']="Niepoprawna data ! Poprawny format: RRRR-MM-DD.";
+				header('Location: menu.php');
 			}
 
 			
@@ -36,6 +38,7 @@
 			{
 				$confirm_income = false;
 				$_SESSION['i_comment']="Komentarz jest zbyt długi ! Max długość komentarza to 100 znaków !";
+				header('Location: menu.php');
 			}
 			
 			// spr wyboru listy
@@ -46,6 +49,7 @@
 			{
 				$confirm_income = false;
 				$_SESSION['i_select']="Wybierz przynajmniej jedną kategorię przychodu !";
+				header('Location: menu.php');
 			}
 			
 			

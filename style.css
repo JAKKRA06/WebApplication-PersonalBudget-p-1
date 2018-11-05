@@ -352,7 +352,7 @@ input[type=password]:focus
     border: 3px solid green;
     border-radius: 20px;
     min-height: 300px;
-    width: 230px;
+    width: 250px;
     border-collapse: separate;
     margin: auto;
 }
@@ -362,7 +362,7 @@ input[type=password]:focus
     border: 3px solid red;
     border-radius: 20px;
     min-height: 300px;
-    width: 230px;
+    width: 250px;
     border-collapse: separate;
     margin: auto;
 }
@@ -474,7 +474,7 @@ td p
 	
 #comment
 {
-	font-size: 22px;
+	font-size: 20px;
 }
 
 .modal-content
@@ -483,13 +483,26 @@ td p
 	text-align: center;
 }
 
-.category_list_name
+.category_list_name_income
 {
 	text-align: center;
-	font-size: 22px;
+	font-size: 20px;
+	color: green;
 }
 
-.category_list_name:hover
+.category_list_name_income:hover
+{
+	text-decoration: underline;
+	cursor: pointer;
+}
+.category_list_name_expense
+{
+	text-align: center;
+	font-size: 20px;
+	color: red;
+}
+
+.category_list_name_expense:hover
 {
 	text-decoration: underline;
 	cursor: pointer;
@@ -502,7 +515,63 @@ td p
 	text-align: right;
 }
 
-.category_list
+.saving
 {
+	color: green;
+}
 
+.debt
+{
+	color: red;
+}
+
+.dropbtn {
+    background-color: #0066cc;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+	border-radius: 20px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;
+border-radius: 20px;}
+
+.dropdown:hover .dropdown-content {display: block;
+border-radius: 20px;
+border: 1px solid #000;}
+
+.dropdown:hover .dropbtn {background-color: #0066cc;}
+
+#comentary p:hover
+{
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.modal-content
+{
+	border-radius: 20px;
+	border: 2px solid #000;
 }

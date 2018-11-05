@@ -12,7 +12,8 @@
 			if (is_numeric($amount) == false)
 			{
 				$confirm_expense = false;
-				$_SESSION['e_amount']="Niepoprawna kwota ! Poprawny format: 100.00";
+				$_SESSION['e_amount']="Niepoprawna kwota !".'<br/>'."Poprawny format: 100.00";
+				header('Location: menu.php');
 			}
 			
 			// spr daty 
@@ -26,33 +27,37 @@
 			{
 				$confirm_expense = false;
 				$_SESSION['e_date']="Niepoprawna data ! Poprawny format: RRRR-MM-DD.";
+				header('Location: menu.php');
 			}
 		
 		// spr wyboru listy
 			
-			$payment_method=array("Gotówka", "Karta płatnicza", "Karta kredytowa");
+			$payment_method=array("Gotowka", "Karta platnicza", "Karta kredytowa");
 			
 			if (!in_array($_POST['expense_payment_method'], $payment_method))
 			{
-				$confirm_income = false;
-				$_SESSION['e_payment_method']="Wybierz przynajmniej jedną kategorię przychodu !";
+				$confirm_expense = false;
+				$_SESSION['e_payment_method']="Wybierz przynajmniej jedną".'<br/>'."metodę płatności !";
+				header('Location: menu.php');
 			}
 		
 			$comment = $_POST['expense_comment'];
 			if (strlen($comment) > 100 )
 			{
 				$confirm_expense = false;
-				$_SESSION['e_comment']="Komentarz jest zbyt długi ! Max długość komentarza to 100 znaków !";
+				$_SESSION['e_comment']="Komentarz jest zbyt długi !".'<br/>'."Max długość komentarza to 100 znaków !";
+				header('Location: menu.php');
 			}
 			
 		// kategorii
 	
-			$expense_category=array("Mieszkanie", "Kredyt", "Transport", "Telekomunikacja", "Opieka zdrowotna", "Ubranie", "Higiena", "Dzieci", "Rozrywka", "Wycieczka", "Książki", "Oszczędności", "Spłta długów", "Darowizna", "Na złotą jesień, czyli emeryturę", "Inne wydatki");
+			$expense_category=array("Mieszkanie", "Kredyt", "Transport", "Telekomunikacja", "Opieka zdrowotna", "Ubranie", "Higiena", "Dzieci", "Rozrywka", "Wycieczka", "Ksiazki", "Oszczednosci", "Splta dlugow", "Darowizna", "Na zlota jesien, czyli emeryture", "Inne wydatki");
 			
 			if (!in_array($_POST['expense_category_select'], $expense_category))
 			{
-				$confirm_income = false;
-				$_SESSION['e_category_select']="Wybierz przynajmniej jedną kategorię przychodu !";
+				$confirm_expense = false;
+				$_SESSION['e_category_select']="Wybierz przynajmniej jedną kategorię wydatku !";
+				header('Location: menu.php');
 			}
 		
 		
@@ -80,22 +85,15 @@
 						$row_user = $answer->fetch_assoc();
 						$sign_in_user_id = $row_user['id'];
 						
-						
 						$result = $connection->query("SELECT * FROM expenses_category_assigned_to_users WHERE name = '$expense_category_select' AND user_id = '$sign_in_user_id'");
 						$row = $result->fetch_assoc();
 						$id_expense_assigned_to_user = $row['id'];	
 						
-						
-						//echo $payment_method;exit(); //daje prawidłowy wynik
 		
-						$result = $connection->query("SELECT * FROM payment_methods_assigned_to_users WHERE name = '$payment_method' AND user_id = '$sign_in_user_id'");
-						$row = $result->fetch_assoc();	
-						$id_payment_method = $row['id'];
-						
-						
-						echo $id_payment_method;exit(); // daje pusty wynik
-						
-						
+						$answer = $connection->query("SELECT * FROM payment_methods_assigned_to_users WHERE name = '$payment_method' AND user_id = '$sign_in_user_id'");
+						$row_payment = $answer->fetch_assoc();
+						$id_payment_method = $row_payment['id'];
+	
 						if ($connection->query("INSERT INTO expenses VALUES 
 						(NULL, '$sign_in_user_id',  '$id_expense_assigned_to_user', '$id_payment_method', '$amount', '$expense_date', '$comment' )"))
 						{

@@ -63,7 +63,7 @@
                <div class="col-sm-12">
                    <section class="description">
 				   
-                        <form method= "post" action="zaloguj.php">
+                        <form method= "post" action="logIn.php">
 							
 							  <label for="usr">Nazwa użytkownika:</label>
 							  <input type="text" name= "login" class="form-control" id="usr" placeholder="login" onfocus="this.placeholder=''" onblur="this.placeholder='login'">

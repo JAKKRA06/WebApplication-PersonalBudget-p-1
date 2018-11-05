@@ -46,10 +46,7 @@
 	
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	
-	
-	
-	
-	
+
   
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
@@ -72,24 +69,49 @@
     <meta name="theme-color" content="#ffffff">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	
+	<script type="text/jscript" src="https://www.gstatic.com/charts/loader.js"></script>
   
-  
-    <script>
-$(document).ready(function(){ //Make script DOM ready
-    $('#peroid').change(function() { //jQuery Change Function
-        var opval = $(this).val(); //Get value from select element
-        if(opval=="NS"){ //Compare it and if true
-            $('#myModal').modal('show'); //Open Modal
-        }
+<script>
+$(function() {
+    $('#myTopnav').each(function() {
+        const $a = $(this).find('a'); //pobieram wszystkie linki-zakładki
+
+        //po kliknięciu na link...
+        $a.on('click', function(e) {
+            //podstawiamy pod zmienną $this kliknięty link
+            const $this = $(this);
+
+            //pobieramy href klikniętego linka
+            const href = $this.attr('href');
+            //pobieramy treść na którą wskazuje link
+            const $target = $(href);
+
+            //jeżeli ta treść w ogóle istnieje...
+            if ($target.length) {
+                e.preventDefault(); //przerwij domyślną czynność jeżeli istnieje zawartość zakładki - inaczej niech dziala jak link
+
+                //usuwamy z sąsiednich linków klasę active
+                $this.siblings('a').removeClass('active');
+                //klikniętemu linkowi dajemy klasę active
+                $this.addClass('active');
+
+                //podobne działanie robimy dla treści tabów
+                $target.siblings('.tab-pane').removeClass('active');
+                $target.addClass('active');
+            }
+        });
     });
 });
   </script>
-  
-  
 </head>
 <body>
+
     <main>
+	
         <div class="container">
+		
            <div class="row">
              
               <div class="col-sm-12">
@@ -119,8 +141,9 @@ $(document).ready(function(){ //Make script DOM ready
                             <a href="#mainpage" class="active" role="tab" data-toggle="tab">Strona główna</a>
                             <a href="#income" role="tab" data-toggle="tab">Dodaj przychód</a>
                             <a href="#expense" role="tab" data-toggle="tab">Dodaj wydatek</a>
-                            <a href="#balance" role="tab" data-toggle="tab">Przeglądaj bilans</a>
+                            <a href="#balance" id="balanceTab" role="tab" data-toggle="tab">Przeglądaj bilans</a>
                             <a href="#settings" role="tab" data-toggle="tab">Ustawienia</a>
+								 
 							<?php
 							
 								echo '<a href="logOut.php">Wyloguj</a>';
@@ -133,7 +156,7 @@ $(document).ready(function(){ //Make script DOM ready
                </div>
                         <!--1 AKŁADKA-->
                     <article class="tab-content">
-                        <section class="tab-pane active" id="mainpage">
+                        <article class="tab-pane active" id="mainpage">
                			<?php
 							if(isset($_SESSION['income_added']))
 							{
@@ -146,6 +169,7 @@ $(document).ready(function(){ //Make script DOM ready
 								echo '<div class="expense_success">'.$_SESSION['expense_added'].'</div>';
 								unset($_SESSION['expense_added']);
 							}
+							
 						?>
                         <div class="row">
                             <div class="col-sm-6">
@@ -176,12 +200,12 @@ $(document).ready(function(){ //Make script DOM ready
                                 </table>
                             </div>
                         </div>  
-                        </section>                
+                        </article>                
                        <!--2 AKŁADKA-->
                        
                         <article class="tab-pane" id="income">
                            <section class="title">DODAWANIE PRZYCHODU</section>
-                            <form method="post" action="przychod.php">
+                            <form method="post" action="income.php">
                             
                              <article class="row">
                                  <label class="col-sm-4">Kwota</label>
@@ -251,22 +275,15 @@ $(document).ready(function(){ //Make script DOM ready
                                <div class="col-12">
                                         <button class="btn btn-lg btn-success add" type="submit"><i class="icon-plus"></i></button>       
                                     </div>
-                                 </article>   
+                               </article>   
                             </form>								 
-                            </article>
+                        </article>
 
                     
                        <!--3 AKŁADKA-->
-                        <article class="tab-pane" id="expense">
+                      <article class="tab-pane" id="expense">
                            <section class="title">DODAWANIE WYDATKU</section>
-						 <?php
-							if(isset($_SESSION['expense_added']))
-							{
-								echo '<div class="expense_success">'.$_SESSION['expense_added'].'</div>';
-								unset($_SESSION['expense_added']);
-							}
-						?>
-                            <form method="post" action="wydatek.php">
+                            <form method="post" action="expense.php">
                              
                               <article class=" row">
                                 <label for="kwota" class="col-sm-4 col-form-label">Kwota</label>
@@ -301,8 +318,8 @@ $(document).ready(function(){ //Make script DOM ready
                                   <div class="col-sm-8">
                                   <select class="custom-select" name="expense_payment_method">
                                      <option selected >Rozwiń</option>
-                                        <option value="Gotówka">Gotówka</option>
-                                        <option value="Karta płatnicza">Karta płatnicza</option>
+                                        <option value="Gotowka">Gotówka</option>
+                                        <option value="Karta platnicza">Karta płatnicza</option>
                                         <option value="Karta kredytowa">Karta kredytowa</option>
                                       </select>
 										<?php
@@ -321,7 +338,7 @@ $(document).ready(function(){ //Make script DOM ready
                                   <select class="custom-select" name="expense_category_select">
 										<option selected >Rozwiń</option>
 										<option value="Transport">Transport</option>
-										<option value="Książki">Książki</option>
+										<option value="Ksiazki">Książki</option>
 										<option value="Jedzenie">Jedzenie</option>
 										<option value="Mieszkanie">Mieszkanie</option>
 										<option value="Telekomunikacja">Telekomunikacja</option>
@@ -331,9 +348,9 @@ $(document).ready(function(){ //Make script DOM ready
 										<option value="Dzieci">Dzieci</option>
 										<option value="Rozrywka">Rozrywka</option>
 										<option value="Wycieczka">Wycieczka</option>
-										<option value="Oszczędności">Oszczędności</option>
-										<option value="Na złotą jesień, czyli emeryturę">Na złotą jesień, czyli emeryturę</option>
-										<option value="Spłta długów">Spłta długów</option>
+										<option value="Oszczednosci">Oszczędności</option>
+										<option value="Na zlota jesien, czyli emeryture">Na złotą jesień, czyli emeryturę</option>
+										<option value="Splta dlugow">Spłta długów</option>
 										<option value="Darowizna">Darowizna</option>
 										<option value="Inne wydatki">Inne wydatki</option>
                                     </select>
@@ -368,7 +385,7 @@ $(document).ready(function(){ //Make script DOM ready
 								   </div>
 								</article>
                              </form>
-                        </article>
+							</article>
 
                        <!--4 AKŁADKA-->
 
@@ -377,20 +394,50 @@ $(document).ready(function(){ //Make script DOM ready
                             <div class="col-sm-12">
                                <section class="dropdown" id="drop">
 							   
-                                    <select id="peroid" class="dropPeroid">
-										<option value="BM" class="dropdown-item" active >Bieżący miesiąc</option>
-										<option class="dropdown-item"  value="PM">Poprzedni miesiąc</option>
-										<option class="dropdown-item"  value="BR">Bieżący rok</option>
-										<option class="dropdown-item" value="NS" data-toggle="modal" data-target="myModal">Niestandardowy</option>
-									</select>
+									<div class="dropdown">
+									  <button class="dropbtn">Wybierz okres <i class="fa fa-caret-down"></i></button>
+										  <div class="dropdown-content" id="peroid">
+											<a href="currentMonth.php">Bieżący miesiąc</a>
+											<a href="previousMonth.php">Poprzedni miesiąc</a>
+											<a href="currentYear.php">Bieżący rok</a>
+											<a data-toggle="modal" href="#myModal">Niestandardowy</a>
+										  </div>
+									</div>
+									
                                 </section>
-								 
                             </div>
-                            <div class="col-md-12">
-                                <section id="dropDownPeroid">Bieżący miesiąc</section>
-                            </div>
-                        </div>	
-                        
+			
+							<div class="col-md-12">
+                                <section id="dropDownPeroid">
+								
+									<?php
+										if (!isset($_SESSION['currentYear']) && (!isset($_SESSION['previousMonth'])) && (!isset($_SESSION['non_standard'])))
+										{
+											$_SESSION['currentMonth'] = true;
+										}
+										
+										
+										if (isset($_SESSION['currentYear']))
+										{
+											echo 'Bieżący rok';
+										}
+										else if(isset($_SESSION['currentMonth']))
+										{
+											echo 'Bieżący miesiąc';
+										}
+										else if (isset($_SESSION['previousMonth']))
+										{
+											echo 'Poprzedni miesiąc';
+										}
+										else if (isset($_SESSION['non_standard']))
+										{
+											echo '<div>'."Zakres wybranych dat: ".'<br/>'.$_SESSION['startDate'] ."  -  ".$_SESSION['lastDate'] .'</div>';
+										}
+									
+									?>
+								</section>
+							</div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <table class="table1 responsive">
@@ -401,10 +448,12 @@ $(document).ready(function(){ //Make script DOM ready
                                         <td id="tableIncome">
 <?php
 
-	require_once "connect.php";
+		require_once "connect.php";
 
 		mysqli_report(MYSQLI_REPORT_STRICT);
-
+		
+	if (isset($_SESSION['currentMonth']))
+	{
 		try 
 		{
 			$connection = new mysqli($host, $db_user, $db_password, $db_name);
@@ -417,43 +466,48 @@ $(document).ready(function(){ //Make script DOM ready
 					$username = $_SESSION['user'];
 					$dateStart = new DateTime('first day of this month');
 					$dateS = $dateStart->format('Y-m-d');
-					
 
 					$dateLast = new DateTime('last day of this month');
 					$dateL = $dateLast->format('Y-m-d');
 
-					$answer = $connection->query("SELECT * FROM users WHERE username = '$username'");
-					$row_user = $answer->fetch_assoc();
+					$answer1 = $connection->query("SELECT * FROM users WHERE username = '$username'");
+					$row_user = $answer1->fetch_assoc();
 					$sign_in_user_id = $row_user['id'];
 					
-					//obecny miesiac
+	/////////////////////////////////////////////////////////////////////////obecny miesiac//////////////////////////////////////////////////////////////////////////////
 					
-					$answer1 = $connection->query("SELECT income_category_assigned_to_user_id, SUM(amount) FROM `incomes` WHERE date_of_income BETWEEN '$dateS' AND '$dateL' AND user_id = '$sign_in_user_id' GROUP BY income_category_assigned_to_user_id ORDER BY SUM(amount) DESC");
+					$answer2 = $connection->query("SELECT income_category_assigned_to_user_id, SUM(amount) FROM `incomes` WHERE date_of_income BETWEEN '$dateS' AND '$dateL' AND user_id = '$sign_in_user_id' GROUP BY income_category_assigned_to_user_id ORDER BY SUM(amount) DESC");
 					
 					$result = $connection->query("SELECT SUM(amount) FROM `incomes` WHERE date_of_income BETWEEN '$dateS' AND '$dateL' AND user_id = '$sign_in_user_id' " );
 					$row = $result->fetch_assoc();
 					$sum_all_incomes = $row['SUM(amount)'];
 					
-				if ($answer1->num_rows > 0) {
-						while($row = $answer1->fetch_assoc()) {
+				if ($answer2->num_rows > 0) {
+						while($row = $answer2->fetch_assoc()) {
 						
 							$income_id_category = $row['income_category_assigned_to_user_id'];
 							$sql = "SELECT * FROM incomes_category_assigned_to_users WHERE id = '$income_id_category'";
-							$answer2 =  $connection->query($sql);
-							$row2 = $answer2->fetch_assoc();
+							$answer3 =  $connection->query($sql);
+							$row2 = $answer3->fetch_assoc();
 							$name = $row2['name'];
-							$SUM = $row['SUM(amount)'];
+							$SUM_income = $row['SUM(amount)'];
+							
+							$answer4 = $connection->query("SELECT amount, date_of_income, income_comment FROM `incomes` WHERE date_of_income BETWEEN '$dateS' AND '$dateL' AND user_id = '$sign_in_user_id' AND income_category_assigned_to_user_id = '$income_id_category' ORDER BY amount DESC");
+
 				
-							echo '<div class="category_list_name">'.$name.'</div>';
-							echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$SUM .'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
-
-						}		
+				
+							echo '<div class="category_list_name_income">'.$name.':'.' '.$SUM_income.'</div>'.'<br/>';
+							while($row3 = $answer4->fetch_assoc())
+							{
+									
+							$date_income = $row3['date_of_income'];
+							$amount_income = $row3['amount'];
+							$comment_income = $row3['income_comment'];
+								echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$amount_income.' 	'.$date_income.' '.'<i>'.$comment_income.'</i>'.'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
+							}
+								echo '<br/>';
+						}
 					}
-					else
-					{
-						//echo "Brak przychodów w wybranym okresie czasu";
-					}
-
 				}
 			$connection->close();
 		}
@@ -463,8 +517,201 @@ $(document).ready(function(){ //Make script DOM ready
 			echo "Błąd serwera ! Przepraszamy za niedogodności.";
 			echo $error;
 		}
+	}
+/////////////////////////////////////////////////////////////////////////Poprzedni MIESIAC////////////////////////////////////////////////////////////
+	
+	else if (isset($_SESSION['previousMonth']))
+	{
+		try 
+		{
+			$connection = new mysqli($host, $db_user, $db_password, $db_name);
+				if ($connection->connect_errno != 0)
+				{
+					throw new Exception(mysqli_connect_errno());
+				}
+				else
+				{
+					$username = $_SESSION['user'];
+					$previous_dateStart = new DateTime('first day of last month');
+					$previous_dateS = $previous_dateStart->format('Y-m-d');
+
+					$previous_dateLast = new DateTime('last day of last month');
+					$previous_dateL = $previous_dateLast->format('Y-m-d');
+
+					$answer1 = $connection->query("SELECT * FROM users WHERE username = '$username'");
+					$row_user = $answer1->fetch_assoc();
+					$sign_in_user_id = $row_user['id'];
+
+					$answer2 = $connection->query("SELECT income_category_assigned_to_user_id, SUM(amount) FROM `incomes` WHERE date_of_income BETWEEN '$previous_dateS' AND '$previous_dateL' AND user_id = '$sign_in_user_id' GROUP BY income_category_assigned_to_user_id ORDER BY SUM(amount) DESC");
+					
+					$result = $connection->query("SELECT SUM(amount) FROM `incomes` WHERE date_of_income BETWEEN '$previous_dateS' AND '$previous_dateL' AND user_id = '$sign_in_user_id' " );
+					$row = $result->fetch_assoc();
+					$sum_all_incomes = $row['SUM(amount)'];
+					
+				if ($answer2->num_rows > 0) {
+						while($row = $answer2->fetch_assoc()) {
+						
+							$income_id_category = $row['income_category_assigned_to_user_id'];
+							$sql = "SELECT * FROM incomes_category_assigned_to_users WHERE id = '$income_id_category'";
+							$answer3 =  $connection->query($sql);
+							$row2 = $answer3->fetch_assoc();
+							$name = $row2['name'];
+							$SUM_income = $row['SUM(amount)'];
+							
+							$answer4 = $connection->query("SELECT amount, date_of_income, income_comment FROM `incomes` WHERE date_of_income BETWEEN '$previous_dateS' AND '$previous_dateL' AND user_id = '$sign_in_user_id' AND income_category_assigned_to_user_id = '$income_id_category' ORDER BY amount DESC");
+
+				
+				
+							echo '<div class="category_list_name_income">'.$name.':'.' '.$SUM_income.'</div>'.'<br/>';
+							while($row3 = $answer4->fetch_assoc())
+							{
+									
+							$date_income = $row3['date_of_income'];
+							$amount_income = $row3['amount'];
+							$comment_income = $row3['income_comment'];
+								echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$amount_income.' 	'.$date_income.' '.'<i>'.$comment_income.'</i>'.'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
+							}
+								echo '<br/>';
+						}
+					}
+				}
+				$connection->close();
+
+		}
+		catch (Exception $error)
+		{
+			echo "Błąd serwera ! Przepraszamy za niedogodności.";
+			echo $error;
+		}
+	}
+	//////////////////////////////////////////////////////////////////////Bieżący rok /////////////////////////////////////////////////////////////////////
+	else if (isset($_SESSION['currentYear']))
+	{
+		try 
+		{
+			$connection = new mysqli($host, $db_user, $db_password, $db_name);
+				if ($connection->connect_errno != 0)
+				{
+					throw new Exception(mysqli_connect_errno());
+				}
+				else
+				{
+					$username = $_SESSION['user'];
+					$currentYear_dateStart = new DateTime('first day of January ' . date('Y'));
+					$currentYear_dateS = $currentYear_dateStart->format('Y-m-d');
+
+					$currentYear_dateLast = new DateTime('last day of December ' . date('Y'));
+					$currentYear_dateL = $currentYear_dateLast->format('Y-m-d');
+					
+					$answer1 = $connection->query("SELECT * FROM users WHERE username = '$username'");
+					$row_user = $answer1->fetch_assoc();
+					$sign_in_user_id = $row_user['id'];
+					
+					$answer2 = $connection->query("SELECT income_category_assigned_to_user_id, SUM(amount) FROM `incomes` WHERE date_of_income BETWEEN '$currentYear_dateS' AND '$currentYear_dateL' AND user_id = '$sign_in_user_id' GROUP BY income_category_assigned_to_user_id ORDER BY SUM(amount) DESC");
+					
+					$result = $connection->query("SELECT SUM(amount) FROM `incomes` WHERE date_of_income BETWEEN '$currentYear_dateS' AND '$currentYear_dateL' AND user_id = '$sign_in_user_id' " );
+					$row = $result->fetch_assoc();
+					$sum_all_incomes = $row['SUM(amount)'];
+					
+				if ($answer2->num_rows > 0) {
+						while($row = $answer2->fetch_assoc()) {
+						
+							$income_id_category = $row['income_category_assigned_to_user_id'];
+							$sql = "SELECT * FROM incomes_category_assigned_to_users WHERE id = '$income_id_category'";
+							$answer3 =  $connection->query($sql);
+							$row2 = $answer3->fetch_assoc();
+							$name = $row2['name'];
+							$SUM_income = $row['SUM(amount)'];
+							
+							$answer4 = $connection->query("SELECT amount, date_of_income, income_comment FROM `incomes` WHERE date_of_income BETWEEN '$currentYear_dateS' AND '$currentYear_dateL' AND user_id = '$sign_in_user_id' AND income_category_assigned_to_user_id = '$income_id_category' ORDER BY amount DESC");
+
+				
+							echo '<div class="category_list_name_income">'.$name.':'.' '.$SUM_income.'</div>'.'<br/>';
+							while($row3 = $answer4->fetch_assoc())
+							{
+									
+							$date_income = $row3['date_of_income'];
+							$amount_income = $row3['amount'];
+							$comment_income = $row3['income_comment'];
+								echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$amount_income.' 	'.$date_income.' '.'<i>'.$comment_income.'</i>'.'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
+							}
+								echo '<br/>';
+						}
+					}
+				}
+	 			$connection->close();
+		}
+		catch (Exception $error)
+		{
+			echo "Błąd serwera ! Przepraszamy za niedogodności.";
+			echo $error;
+		}
+	}
+	//////////////////////////////////////////////////////////////////////Niestandardowy/////////////////////////////////////////////////////////////////
+	
+	else if(isset($_SESSION['non_standard']))
+	{
+
+		try 
+		{
+			$connection = new mysqli($host, $db_user, $db_password, $db_name);
+				if ($connection->connect_errno != 0)
+				{
+					throw new Exception(mysqli_connect_errno());
+				}
+				else
+				{
+					$username = $_SESSION['user'];
+					$non_standard_dateStart = $_SESSION['startDate'];
+					$non_standard_dateLast = $_SESSION['lastDate'];
+	
+					
+					$answer1 = $connection->query("SELECT * FROM users WHERE username = '$username'");
+					$row_user = $answer1->fetch_assoc();
+					$sign_in_user_id = $row_user['id'];
+					
+					$answer2 = $connection->query("SELECT income_category_assigned_to_user_id, SUM(amount) FROM `incomes` WHERE date_of_income BETWEEN '$non_standard_dateStart' AND '$non_standard_dateLast' AND user_id = '$sign_in_user_id' GROUP BY income_category_assigned_to_user_id ORDER BY SUM(amount) DESC");
+					
+					$result = $connection->query("SELECT SUM(amount) FROM `incomes` WHERE date_of_income BETWEEN '$non_standard_dateStart' AND '$non_standard_dateLast' AND user_id = '$sign_in_user_id' " );
+					$row = $result->fetch_assoc();
+					$sum_all_incomes = $row['SUM(amount)'];
+					
+				if ($answer2->num_rows > 0) {
+						while($row = $answer2->fetch_assoc()) {
+						
+							$income_id_category = $row['income_category_assigned_to_user_id'];
+							$sql = "SELECT * FROM incomes_category_assigned_to_users WHERE id = '$income_id_category'";
+							$answer3 =  $connection->query($sql);
+							$row2 = $answer3->fetch_assoc();
+							$name = $row2['name'];
+							$SUM_income = $row['SUM(amount)'];
+							
+							$answer4 = $connection->query("SELECT amount, date_of_income, income_comment FROM `incomes` WHERE date_of_income BETWEEN '$non_standard_dateStart' AND '$non_standard_dateLast' AND user_id = '$sign_in_user_id' AND income_category_assigned_to_user_id = '$income_id_category' ORDER BY amount DESC");
+
+				
+				
+							echo '<div class="category_list_name_income">'.$name.':'.' '.$SUM_income.'</div>'.'<br/>';
+							while($row3 = $answer4->fetch_assoc())
+							{
+									
+							$date_income = $row3['date_of_income'];
+							$amount_income = $row3['amount'];
+							$comment_income = $row3['income_comment'];
+								echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$amount_income.' 	'.$date_income.' '.'<i>'.$comment_income.'</i>'.'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
+							}
+								echo '<br/>';
+						}
+					}
+				}
+	 			$connection->close();
+		}
+		catch (Exception $error)
+		{
+			echo "Błąd serwera ! Przepraszamy za niedogodności.";
+			echo $error;
+		}
+	}
 ?>
-										
 										</td>
                                     </tr>
                                 </table>
@@ -476,8 +723,12 @@ $(document).ready(function(){ //Make script DOM ready
                                     </tr>
                                     <tr>
                                         <td id="tableExpense">
-										<?php
+<?php
 										
+if (isset($_SESSION['currentMonth']))
+	{
+		require_once "connect.php";
+
 		mysqli_report(MYSQLI_REPORT_STRICT);
 
 		try 
@@ -492,46 +743,52 @@ $(document).ready(function(){ //Make script DOM ready
 					$username = $_SESSION['user'];
 					$dateStart = new DateTime('first day of this month');
 					$dateS = $dateStart->format('Y-m-d');
-					
 
 					$dateLast = new DateTime('last day of this month');
 					$dateL = $dateLast->format('Y-m-d');
 
-					$answer = $connection->query("SELECT * FROM users WHERE username = '$username'");
-					$row_user = $answer->fetch_assoc();
+					$answer1 = $connection->query("SELECT * FROM users WHERE username = '$username'");
+					$row_user = $answer1->fetch_assoc();
 					$sign_in_user_id = $row_user['id'];
 					
-					//obecny miesiac
+		//////////////////////////////////////////////////////////////////////////////obecny miesiac/////////////////////////////////////////////////////////////////
 					
-					$answer1 = $connection->query("SELECT expense_category_assigned_to_user_id, SUM(amount) FROM `expenses` WHERE date_of_expense BETWEEN '$dateS' AND '$dateL' AND user_id = '$sign_in_user_id' GROUP BY expense_category_assigned_to_user_id ORDER BY SUM(amount) DESC");
+					$answer2 = $connection->query("SELECT expense_category_assigned_to_user_id, SUM(amount) FROM `expenses` WHERE date_of_expense BETWEEN '$dateS' AND '$dateL' AND user_id = '$sign_in_user_id' GROUP BY expense_category_assigned_to_user_id ORDER BY SUM(amount) DESC");
 
-					$result = $connection->query("SELECT SUM(amount) FROM `incomes` WHERE date_of_income BETWEEN '$dateS' AND '$dateL' AND user_id = '$sign_in_user_id' " );
-					$row = $result->fetch_assoc();
+					$result = $connection->query("SELECT SUM(amount) FROM `expenses` WHERE date_of_expense BETWEEN '$dateS' AND '$dateL' AND user_id = '$sign_in_user_id' " );
+					$row = $result->fetch_assoc();					
 					$sum_all_expenses = $row['SUM(amount)'];
+
 					
-					
-				if ($answer1->num_rows > 0) {
-						while($row = $answer1->fetch_assoc()) {
+				if ($answer2->num_rows > 0) {
+						while($row = $answer2->fetch_assoc()) {
 						
 							$expense_id_category = $row['expense_category_assigned_to_user_id'];
 							$sql = "SELECT * FROM expenses_category_assigned_to_users WHERE id = '$expense_id_category'";
-							$answer2 =  $connection->query($sql);
-							$row2 = $answer2->fetch_assoc();
+							$answer3 =  $connection->query($sql);
+							$row2 = $answer3->fetch_assoc();
 							$name = $row2['name'];
-							$SUM = $row['SUM(amount)'];
-				
-							echo '<div class="category_list_name">'.$name.'</div>';
-							echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$SUM .'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
+							$SUM_expense = $row['SUM(amount)'];
+							
+							$answer4 = $connection->query("SELECT amount, date_of_expense, expense_comment FROM `expenses` WHERE date_of_expense BETWEEN '$dateS' AND '$dateL' AND user_id = '$sign_in_user_id' AND expense_category_assigned_to_user_id = '$expense_id_category' ORDER BY amount DESC");
 
-						}		
+							echo '<div class="category_list_name_expense">'.$name.':'.' '.$SUM_expense.'</div>'.'<br/>';
+							
+							$dataPoints[] = array ("label"=>$name, "y"=>$SUM_expense);
+							
+							while($row3 = $answer4->fetch_assoc())
+							{
+								$date_expense = $row3['date_of_expense'];
+								$amount_expense = $row3['amount'];
+								$comment_expense = $row3['expense_comment'];
+								echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$amount_expense.' '.$date_expense.' '.'<i>'.$comment_expense.'</i>'.'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
+							}
+								echo '<br/>';
+						}
 					}
-					else
-					{
-						//echo "Brak przychodów w wybranym okresie czasu";
-					}
-
 				}
 			$connection->close();
+			unset($_SESSION['currentMonth']);
 		}
 
 		catch (Exception $error)
@@ -539,6 +796,213 @@ $(document).ready(function(){ //Make script DOM ready
 			echo "Błąd serwera ! Przepraszamy za niedogodności.";
 			echo $error;
 		}
+	}
+	
+		/////////////////////////////////////////////////////////////////////////Poprzedni MIESIAC////////////////////////////////////////////////////////////
+
+	
+	else if (isset($_SESSION['previousMonth']))
+	{ 
+		try 
+		{
+			$connection = new mysqli($host, $db_user, $db_password, $db_name);
+				if ($connection->connect_errno != 0)
+				{
+					throw new Exception(mysqli_connect_errno());
+				}
+				else
+				{
+					$username = $_SESSION['user'];
+					$previous_dateStart = new DateTime('first day of last month');
+					$previous_dateS = $previous_dateStart->format('Y-m-d');
+
+					$previous_dateLast = new DateTime('last day of last month');
+					$previous_dateL = $previous_dateLast->format('Y-m-d');
+
+					$answer1 = $connection->query("SELECT * FROM users WHERE username = '$username'");
+					$row_user = $answer1->fetch_assoc();
+					$sign_in_user_id = $row_user['id'];
+					
+					$answer2 = $connection->query("SELECT expense_category_assigned_to_user_id, SUM(amount) FROM `expenses` WHERE date_of_expense BETWEEN '$previous_dateS' AND '$previous_dateL' AND user_id = '$sign_in_user_id' GROUP BY expense_category_assigned_to_user_id ORDER BY SUM(amount) DESC");
+					
+					$result = $connection->query("SELECT SUM(amount) FROM `expenses` WHERE date_of_expense BETWEEN '$previous_dateS' AND '$previous_dateL' AND user_id = '$sign_in_user_id' " );
+					$row = $result->fetch_assoc();					
+					$sum_all_expenses = $row['SUM(amount)'];
+
+								
+				if ($answer2->num_rows > 0) {
+						while($row = $answer2->fetch_assoc()) {
+						
+							$expense_id_category = $row['expense_category_assigned_to_user_id'];
+							$sql = "SELECT * FROM expenses_category_assigned_to_users WHERE id = '$expense_id_category'";
+							$answer3 =  $connection->query($sql);
+							$row2 = $answer3->fetch_assoc();
+							$name = $row2['name'];
+							$SUM_expense = $row['SUM(amount)'];
+							
+							$answer4 = $connection->query("SELECT amount, date_of_expense, expense_comment FROM `expenses` WHERE date_of_expense BETWEEN '$previous_dateS' AND '$previous_dateL' AND user_id = '$sign_in_user_id' AND expense_category_assigned_to_user_id = '$expense_id_category' ORDER BY amount DESC");
+				
+							echo '<div class="category_list_name_expense">'.$name.':'.' '.$SUM_expense.'</div>'.'<br/>';
+							
+							$dataPoints[] = array ("label"=>$name, "y"=>$SUM_expense);
+													
+							while($row3 = $answer4->fetch_assoc())
+							{
+								$date_expense = $row3['date_of_expense'];
+								$amount_expense = $row3['amount'];
+								$comment_expense = $row3['expense_comment'];
+								echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$amount_expense.' '.$date_expense.' '.'<i>'.$comment_expense.'</i>'.'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
+							}
+								echo '<br/>';
+						}
+					}
+				}
+	 			$connection->close();
+				unset ($_SESSION['previousMonth']);
+		}
+		catch (Exception $error)
+		{
+			echo "Błąd serwera ! Przepraszamy za niedogodności.";
+			echo $error;
+		}
+	}
+////////////////////////////////////////////////////////////////////////////Bieżący rok /////////////////////////////////////////////////////////////////////
+	else if (isset($_SESSION['currentYear']))
+	{
+		try 
+		{
+			$connection = new mysqli($host, $db_user, $db_password, $db_name);
+				if ($connection->connect_errno != 0)
+				{
+					throw new Exception(mysqli_connect_errno());
+				}
+				else
+				{
+					$username = $_SESSION['user'];
+					$currentYear_dateStart = new DateTime('first day of January ' . date('Y'));
+					$currentYear_dateS = $currentYear_dateStart->format('Y-m-d');
+
+					$currentYear_dateLast = new DateTime('last day of December ' . date('Y'));
+					$currentYear_dateL = $currentYear_dateLast->format('Y-m-d');
+					
+					$answer1 = $connection->query("SELECT * FROM users WHERE username = '$username'");
+					$row_user = $answer1->fetch_assoc();
+					$sign_in_user_id = $row_user['id'];
+					
+					$answer2 = $connection->query("SELECT expense_category_assigned_to_user_id, SUM(amount) FROM `expenses` WHERE date_of_expense BETWEEN '$currentYear_dateS' AND '$currentYear_dateL' AND user_id = '$sign_in_user_id' GROUP BY expense_category_assigned_to_user_id ORDER BY SUM(amount) DESC");
+					
+					$result = $connection->query("SELECT SUM(amount) FROM `expenses` WHERE date_of_expense BETWEEN '$currentYear_dateS' AND '$currentYear_dateL' AND user_id = '$sign_in_user_id' " );
+					$row = $result->fetch_assoc();					
+					$sum_all_expenses = $row['SUM(amount)'];
+
+			
+					
+				if ($answer2->num_rows > 0) {
+						while($row = $answer2->fetch_assoc()) {
+						
+							$expense_id_category = $row['expense_category_assigned_to_user_id'];
+							$sql = "SELECT * FROM expenses_category_assigned_to_users WHERE id = '$expense_id_category'";
+							$answer3 =  $connection->query($sql);
+							$row2 = $answer3->fetch_assoc();
+							$name = $row2['name'];
+							$SUM_expense = $row['SUM(amount)'];
+							
+							$answer4 = $connection->query("SELECT amount, date_of_expense, expense_comment FROM `expenses` WHERE date_of_expense BETWEEN '$currentYear_dateS' AND '$currentYear_dateL' AND user_id = '$sign_in_user_id' AND expense_category_assigned_to_user_id = '$expense_id_category' ORDER BY amount DESC");
+
+			
+							echo '<div class="category_list_name_expense">'.$name.':'.' '.$SUM_expense.'</div>'.'<br/>';
+							
+							$dataPoints[] = array ("label"=>$name, "y"=>$SUM_expense);
+								
+								
+							while($row3 = $answer4->fetch_assoc())
+							{
+									
+							$date_expense = $row3['date_of_expense'];
+							$amount_expense = $row3['amount'];
+							$comment_expense = $row3['expense_comment'];
+								echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$amount_expense.' '.$date_expense.' '.'<i>'.$comment_expense.'</i>'.'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
+							}
+								echo '<br/>';
+						}
+					}
+				}
+	 			$connection->close();
+				unset ($_SESSION['currentYear']);
+		}
+		catch (Exception $error)
+		{
+			echo "Błąd serwera ! Przepraszamy za niedogodności.";
+			echo $error;
+		}
+	}
+		
+///////////////////////////////////////////////////////////////////////////Niestandardowy/////////////////////////////////////////////////////////////////
+	else if (isset($_SESSION['non_standard']))
+	{
+		try 
+		{
+			$connection = new mysqli($host, $db_user, $db_password, $db_name);
+				if ($connection->connect_errno != 0)
+				{
+					throw new Exception(mysqli_connect_errno());
+				}
+				else
+				{
+					$username = $_SESSION['user'];
+					$non_standard_dateStart = $_SESSION['startDate'];
+					$non_standard_dateLast = $_SESSION['lastDate'];
+
+					$answer1 = $connection->query("SELECT * FROM users WHERE username = '$username'");
+					$row_user = $answer1->fetch_assoc();
+					$sign_in_user_id = $row_user['id'];
+					
+					$answer2 = $connection->query("SELECT expense_category_assigned_to_user_id, SUM(amount) FROM `expenses` WHERE date_of_expense BETWEEN '$non_standard_dateStart' AND '$non_standard_dateLast' AND user_id = '$sign_in_user_id' GROUP BY expense_category_assigned_to_user_id ORDER BY SUM(amount) DESC");
+					
+					$result = $connection->query("SELECT SUM(amount) FROM `expenses` WHERE date_of_expense BETWEEN '$non_standard_dateStart' AND '$non_standard_dateLast' AND user_id = '$sign_in_user_id' " );
+					$row = $result->fetch_assoc();					
+					$sum_all_expenses = $row['SUM(amount)'];
+
+			
+					
+				if ($answer2->num_rows > 0) {
+						while($row = $answer2->fetch_assoc()) {
+						
+							$expense_id_category = $row['expense_category_assigned_to_user_id'];
+							$sql = "SELECT * FROM expenses_category_assigned_to_users WHERE id = '$expense_id_category'";
+							$answer3 =  $connection->query($sql);
+							$row2 = $answer3->fetch_assoc();
+							$name = $row2['name'];
+							$SUM_expense = $row['SUM(amount)'];
+							
+							$answer4 = $connection->query("SELECT amount, date_of_expense, expense_comment FROM `expenses` WHERE date_of_expense BETWEEN '$non_standard_dateStart' AND '$non_standard_dateLast' AND user_id = '$sign_in_user_id' AND expense_category_assigned_to_user_id = '$expense_id_category' ORDER BY amount DESC");
+
+							echo '<div class="category_list_name_expense">'.$name.':'.' '.$SUM_expense.'</div>'.'<br/>';
+							
+							$dataPoints[] = array ("label"=>$name, "y"=>$SUM_expense);
+														
+														
+							while($row3 = $answer4->fetch_assoc())
+							{
+									
+								$date_expense = $row3['date_of_expense'];
+								$amount_expense = $row3['amount'];
+								$comment_expense = $row3['expense_comment'];
+								echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$amount_expense.' '.$date_expense.' '.'<i>'.$comment_expense.'</i>'.'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
+							}
+								echo '<br/>';
+						}
+					}
+				}
+	 			$connection->close();
+				unset ($_SESSION['non_standard']);
+		}
+		catch (Exception $error)
+		{
+			echo "Błąd serwera ! Przepraszamy za niedogodności.";
+			echo $error;
+		}
+	}
 ?>
 										</td>
                                     </tr>
@@ -549,92 +1013,105 @@ $(document).ready(function(){ //Make script DOM ready
                         <div class="row">
                             <div class="col-sm-12">
                                 <section class="comment" id="comment">
-                                    <h3 id="comentary"><span>
-									<script src="comment.js"></script>
-									</span></h3>
+                                    <h3 id="comentary">
+										<span>Bilans:
+										<?php 
+										
+											echo round($sum_all_incomes - $sum_all_expenses, 2).' zł'.'</br>';
+											
+											
+											if ($sum_all_incomes > $sum_all_expenses)
+											{
+												echo '<div class = "saving">'.'<br/>'."Świetnie zarządzasz swoimi finansami !".'</div>';
+											}else if ($sum_all_incomes < $sum_all_expenses)
+											{
+												echo '<div class = "debt">'.'<br/>'."Uważaj !".'<br/>'."W tym okresie wygenerowałeś straty !".'</div>';
+											}else
+												echo '';
+																		
+										?></span>
+										</br>
+									</h3>
                                 </section>
                             </div>
                         </div>
                         
                         <div class="row">
                             <div class="col-sm-12">                                
-                                <articcle>
-                                    <div id="chartContainer" style="height: 470px; margin: 0px auto;" >
-									<!--<script>
-										function pie(){
-
-										var chart = new CanvasJS.Chart("chartContainer", {
-													animationEnabled: true,
-													title: {
-														text: "Wykres przedstawia Twoje wydatki z bieżącego miesiąca"
-													},
-													data: [{
-														type: "pie",
-														startAngle: 220,
-														yValueFormatString: "##00.00\"zł\"",
-														indexLabel: "{label} {y}",
-														dataPoints:
-														]
+                                <article>
+										<script>
+											function drawPie() {
+													var chart = new CanvasJS.Chart("chartContainer", {
+														animationEnabled: true,
+														title: {
+															text: "Wydatki jakie wygenerowałeś w wybranym okresie"
+														},
+														data: [{
+														
+															type: "pie",
+															yValueFormatString: "#,##0.00\"zł\"",
+															indexLabel: "{label} ({y})",
+													dataPoints: <?php echo json_encode($dataPoints); ?>	
 													}]
-												});
-												chart.render();
+													});
+													chart.render();
+												}
 
-										}
+											var elPeroid = document.getElementById('peroid');
+											var elTab = document.getElementById('balanceTab');
+											elPeroid.addEventListener('change', drawPie, false);
+											elTab.addEventListener('click', drawPie, false);
+										</script>
 										
-										var elPie = document.getElementById('chartContainer');
-										elPie.addEventListener('load', function () { pie();	}, false);
-									</script>-->
+									<div id="chartContainer" style="height: 450px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>	
 									</div>
-                                </articcle>
+                                </article>
                             </div>
                         </div>
                 
-                    </article>
+             </article>
+				
                     
                        <!--5 AKŁADKA-->
 
-                    <article class="tab-pane" id="settings">
-                       
-                        
-                        
-                        
-                    
-                    
-                    </article>
-                 </article>
-           </div>
+			<article class="tab-pane" id="settings">
+				
+		
+			
+			
+			</article>
+           </article>
 
-        </div>
-                    
+		   
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+			  <div class="modal-dialog modal-sm" role="document">
+					<div class="modal-content">
+					  <div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">Wybierz przedział czasowy: </h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  </div>
+					  <div class="modal-body">
+							<form method="post" action="non_standard.php">
+								Od: <input type="date" id="startDate" name="startDate" value="startDate"> <br/><br/>
+								do: <input type="date" id="lastDate" name ="lastDate" value="lastDate">
+
+								<button class=" btn btn-primary" type="submit"> Potwierdź </button>
+							</form>
+					  </div>
+					</div>
+				</div>
+
+			</div>
+			
+       </div> 
+       
     </main>
 	
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-		  <div class="modal-dialog modal-sm" role="document">
-				<div class="modal-content">
-				  <div class="modal-header">
-						<h4 class="modal-title" id="myModalLabel">Wybierz przedział czasowy: </h4>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				  </div>
-				  <div class="modal-body">
-						<form method="post">
-							Od: <input type="date" id="startDate" value="startDate"> <br/><br/>
-							do: <input type="date" id="lastDate" value="lastDate">
-					  
-							<button type="submit" class="btn btn-primary">Potwierdź</button>
-						</form>
-				  </div>
-				</div>
-		  </div>
-	</div>
-  
-
-		
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
+	
 	<script src="menuResponsywne.js" type="text/jscript"></script>
-    <script src="pieChart.js" type="text/jscript"></script>
     <script src="currentDateEx.js" type="text/jscript"></script>
-    <script src="dropDownPeroid.js" type="text/jscript"></script>
 	
     
 
