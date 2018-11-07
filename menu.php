@@ -144,7 +144,7 @@
 			   
                         <!--1 AKŁADKA-->
                     <article class="tab-content">
-                        <article class="tab-pane " id="mainpage">
+                        <article class="tab-pane active" id="mainpage">
                			<?php
 							if(isset($_SESSION['income_added']))
 							{
@@ -372,11 +372,11 @@
 									</div>
                                 </article>
 								
-								<article class="row">
+								<article class="row" >
 								   <div class="col-12">
 										<button type="submit" class="btn btn-lg btn-danger add"><i class="icon-plus"></i></button>
 								   </div>
-								</article>
+								</article>  
                              </form>
 							</article>
 
@@ -1056,11 +1056,11 @@ if (isset($_SESSION['currentMonth']))
 					</article>
                    
 
-				
+				 
                     
                        <!--5 AKŁADKA-->
 
-					<article class="tab-pane active" id="settings">
+					<article class="tab-pane" id="settings">
 						<div class="row">
 							<div class="col-sm-12">
 								<section>	
@@ -1073,22 +1073,22 @@ if (isset($_SESSION['currentMonth']))
 						<article class="editionUser">
 							<form>
 								<div class="row">
-									<label class="col-sm-6">Ustaw nową nazwę</label>
-									<div class="col-sm-6">
+									<label class="col-md-6">Ustaw nową nazwę</label>
+									<div class="col-md-6">
 										<input type="text" name="newLogin" class="modalInputText" placeholder="login" onfocus="this.placeholder=''" onblur="this.placeholder='login'">
 									</div>
 								</div>
 								
 								<div class="row">
-									<label class="col-sm-6">Ustaw nowe hasło</label>
-									<div class="col-sm-6">
+									<label class="col-md-6">Ustaw nowe hasło</label>
+									<div class="col-md-6">
 										<input type="password" name="newPassword" class="modalInputText"  placeholder="hasło" onfocus="this.placeholder=''" onblur="this.placeholder='hasło'">
 									</div>							
 								</div>
 								
 								<div class="row">
-									<label class="col-sm-6">Ustaw nowy e-mail</label>
-									<div class="col-sm-6">
+									<label class="col-md-6">Ustaw nowy e-mail</label>
+									<div class="col-md-6">
 										<input type="text" name="newEmail" class="modalInputText" placeholder="e-mail" onfocus="this.placeholder=''" onblur="this.placeholder='e-mail'">
 									</div>
 								</div>
@@ -1101,7 +1101,7 @@ if (isset($_SESSION['currentMonth']))
 	
 								
 						<div class="row">
-							<div class="col-sm-4">
+							<div class="col-md-4">
 								<article class="edition">
 									<p style="text-align: center;">PRZYCHODY</P>
 										<button type="button" id="editionButtons" class="btn btn-danger"  data-toggle="modal" data-target="#modalDropIncome">Usuń kategorię</button>
@@ -1110,7 +1110,7 @@ if (isset($_SESSION['currentMonth']))
 								</article>
 							</div>
 							
-							<div class="col-sm-4">
+							<div class="col-md-4">
 								<article class="edition">
 									<p style="text-align: center;">WYDATKI</P>
 										<button type="button" id="editionButtons" class="btn btn-danger"  data-toggle="modal" data-target="#modalDropExpense">Usuń kategorię</button>
@@ -1119,7 +1119,7 @@ if (isset($_SESSION['currentMonth']))
 								</article>
 							</div>
 						
-							<div class="col-sm-4">
+							<div class="col-md-4">
 								<article class="edition">
 									<p style="text-align: center;">METODY PŁATNOŚCI</P>
 										<button type="button" id="editionButtons" class="btn btn-danger"  data-toggle="modal" data-target="#modalDropPayment">Usuń metodę płatności</button>
@@ -1146,22 +1146,22 @@ if (isset($_SESSION['currentMonth']))
 					<div class="modal-body">
 						<form>
 							<div class="modalForm">
-								<input type="radio" name="dropCategory">Mieszkanie<br>
-								<input type="radio" name="dropCategory1">Jedzenie<br>
-								<input type="radio" name="dropCategory2">Transport<br>
-								<input type="radio" name="dropCategory3"> Telekomunikacja<br>
-								<input type="radio" name="dropCategory3"> Ksiazki<br>
-								<input type="radio" name="dropCategory3"> Higiena<br>
-								<input type="radio" name="dropCategory3"> Ubranie<br>
-								<input type="radio" name="dropCategory3"> Opieka zdrowotna<br>
-								<input type="radio" name="dropCategory3"> Dzieci<br>
-								<input type="radio" name="dropCategory3"> Rozrywka<br>
-								<input type="radio" name="dropCategory3"> Wycieczka<br>
-								<input type="radio" name="dropCategory3"> Oszczednosci<br>
-								<input type="radio" name="dropCategory3"> Na zlota jesien, czyli emeryture<br>
-								<input type="radio" name="dropCategory3"> Darowizna<br>
-								<input type="radio" name="dropCategory3"> Splata dlugow<br>
-								<input type="radio" name="dropCategory3"> Inne wydatki<br>
+								<input type="radio" name="dropCategory" value="Mieszkanie"> Mieszkanie<br>
+								<input type="radio" name="dropCategory" value="Jedzenie"> Jedzenie<br>
+								<input type="radio" name="dropCategory" value="Transport"> Transport<br>
+								<input type="radio" name="dropCategory" value="Telekomunikacja"> Telekomunikacja<br>
+								<input type="radio" name="dropCategory" value="Ksiazki"> Książki<br>
+								<input type="radio" name="dropCategory" value="Higiena"> Higiena<br>
+								<input type="radio" name="dropCategory" value="Ubranie"> Ubranie<br>
+								<input type="radio" name="dropCategory" value="Opieka zdrowotna"> Opieka zdrowotna<br>
+								<input type="radio" name="dropCategory" value="Dzieci"> Dzieci<br>
+								<input type="radio" name="dropCategory" value="Rozrywka"> Rozrywka<br>
+								<input type="radio" name="dropCategory" value="Wycieczka"> Wycieczka<br>
+								<input type="radio" name="dropCategory" value="Oszczednosci"> Oszczędności<br>
+								<input type="radio" name="dropCategory" value="Na zlota jesien, czyli emeryture"> Na złotą jesień, czyli emeryture<br>
+								<input type="radio" name="dropCategory" value="Darowizna"> Darowizna<br>
+								<input type="radio" name="dropCategory" value="Splata dlugow"> Spłata długów<br>
+								<input type="radio" name="dropCategory" value="Inne wydatki"> Inne wydatki<br>
 							</div>
 							<button type="submit" class="btn btn-success">Potwierdź</button>
 						</form>
@@ -1184,22 +1184,22 @@ if (isset($_SESSION['currentMonth']))
 					  <p><b>Krok 2.</b> W polu poniżej wpisz nową nazwę kategorii.</p>
 						<form>
 							<div class="modalForm">
-								<input type="radio" name="dropCategory">Mieszkanie<br>
-								<input type="radio" name="dropCategory1">Jedzenie<br>
-								<input type="radio" name="dropCategory2">Transport<br>
-								<input type="radio" name="dropCategory3"> Ksiazki<br>
-								<input type="radio" name="dropCategory3"> Telekomunikacja<br>
-								<input type="radio" name="dropCategory3"> Higiena<br>
-								<input type="radio" name="dropCategory3"> Ubranie<br>
-								<input type="radio" name="dropCategory3"> Opieka zdrowotna<br>
-								<input type="radio" name="dropCategory3"> Dzieci<br>
-								<input type="radio" name="dropCategory3"> Rozrywka<br>
-								<input type="radio" name="dropCategory3"> Wycieczka<br>
-								<input type="radio" name="dropCategory3"> Oszczednosci<br>
-								<input type="radio" name="dropCategory3"> Na zlota jesien, czyli emeryture<br>
-								<input type="radio" name="dropCategory3"> Darowizna<br>
-								<input type="radio" name="dropCategory3"> Splata dlugow<br>
-								<input type="radio" name="dropCategory3"> Inne wydatki<br>
+								<input type="radio" name="dropCategory" value="Mieszkanie"> Mieszkanie<br>
+								<input type="radio" name="dropCategory" value="Jedzenie"> Jedzenie<br>
+								<input type="radio" name="dropCategory" value="Transport"> Transport<br>
+								<input type="radio" name="dropCategory" value="Telekomunikacja"> Telekomunikacja<br>
+								<input type="radio" name="dropCategory" value="Ksiazki"> Książki<br>
+								<input type="radio" name="dropCategory" value="Higiena"> Higiena<br>
+								<input type="radio" name="dropCategory" value="Ubranie"> Ubranie<br>
+								<input type="radio" name="dropCategory" value="Opieka zdrowotna"> Opieka zdrowotna<br>
+								<input type="radio" name="dropCategory" value="Dzieci"> Dzieci<br>
+								<input type="radio" name="dropCategory" value="Rozrywka"> Rozrywka<br>
+								<input type="radio" name="dropCategory" value="Wycieczka"> Wycieczka<br>
+								<input type="radio" name="dropCategory" value="Oszczednosci"> Oszczędności<br>
+								<input type="radio" name="dropCategory" value="Na zlota jesien, czyli emeryture"> Na złotą jesień, czyli emeryture<br>
+								<input type="radio" name="dropCategory" value="Darowizna"> Darowizna<br>
+								<input type="radio" name="dropCategory" value="Splata dlugow"> Spłata długów<br>
+								<input type="radio" name="dropCategory" value="Inne wydatki"> Inne wydatki<br>
 							</div>
 							<br>
 							<input type="text"  class="modalInputText" name="changeCategory" placeholder="nazwa kategorii" onfocus="this.placeholder=''" onblur="this.placeholder='nazwa kategorii'">
@@ -1262,10 +1262,10 @@ if (isset($_SESSION['currentMonth']))
 					<div class="modal-body">
 						<form>
 							<div class="modalForm">
-								<input type="radio" name="dropCategory">Wynagrodzenie<br>
-								<input type="radio" name="dropCategory1">Odsetki bankowe<br>
-								<input type="radio" name="dropCategory2">Sprzedaz na Allegro<br>
-								<input type="radio" name="dropCategory3"> Inne<br>
+								<input type="radio" name="dropCategory" value="Wynagrodzenie"> Wynagrodzenie<br>
+								<input type="radio" name="dropCategory" value="Odsetki bankowe"> Odsetki bankowe<br>
+								<input type="radio" name="dropCategory" value="Sprzedaz na Allegro"> Sprzedaż Allegro<br>
+								<input type="radio" name="dropCategory" value="Inne"> Inne<br>
 							</div>
 							<button type="submit" class="btn btn-success">Potwierdź</button>
 						</form>
@@ -1288,10 +1288,10 @@ if (isset($_SESSION['currentMonth']))
 					  <p><b>Krok 2.</b> W polu poniżej wpisz nową nazwę kategorii.</p>
 						<form>
 							<div class="modalForm">
-								<input type="radio" name="dropCategory">Wynagrodzenie<br>
-								<input type="radio" name="dropCategory1">Odsetki bankowe<br>
-								<input type="radio" name="dropCategory2">Sprzedaz na Allegro<br>
-								<input type="radio" name="dropCategory3"> Inne<br>
+								<input type="radio" name="dropCategory" value="Wynagrodzenie"> Wynagrodzenie<br>
+								<input type="radio" name="dropCategory" value="Odsetki bankowe"> Odsetki bankowe<br>
+								<input type="radio" name="dropCategory" value="Sprzedaz na Allegro"> Sprzedaż na Allegro<br>
+								<input type="radio" name="dropCategory" value="Inne"> Inne<br>
 							</div>
 							<br>
 							<input type="text" class="modalInputText" name="changeCategory" placeholder="nazwa kategorii" onfocus="this.placeholder=''" onblur="this.placeholder='nazwa kategorii'">
@@ -1303,6 +1303,7 @@ if (isset($_SESSION['currentMonth']))
 		</div>
   </div>
 
+  
 	 				<!-- Modal Payment methods -->		
   <div class="modal fade" id="modalAddPayment" role="dialog">
 		<div class="modal-dialog">
@@ -1334,9 +1335,9 @@ if (isset($_SESSION['currentMonth']))
 					<div class="modal-body">
 						<form>
 							<div class="modalForm">
-								<input type="radio" name="dropCategory">Gotowka<br>
-								<input type="radio" name="dropCategory1">Karta platnicza<br>
-								<input type="radio" name="dropCategory2">Karta kredytowa<br>
+								<input type="radio" name="dropCategoryPayment" value="Gotowka"> Gotówka<br>
+								<input type="radio" name="dropCategoryPayment" value="Karta platnicza"> Karta płatnicza<br>
+								<input type="radio" name="dropCategoryPayment" value="Karta kredytowa"> Karta kredytowa<br>
 							</div>
 							<button type="submit" class="btn btn-success">Potwierdź</button>
 						</form>
@@ -1359,9 +1360,9 @@ if (isset($_SESSION['currentMonth']))
 					  <p><b>Krok 2.</b> W polu poniżej wpisz nową nazwę metody płatności.</p>
 						<form>
 							<div class="modalForm">
-								<input type="radio" name="dropCategory">Gotowka<br>
-								<input type="radio" name="dropCategory1">Karta platnicza <br>
-								<input type="radio" name="dropCategory3"> Karta kredytowa<br>
+								<input type="radio" name="dropCategory" value="Gotowka"> Gotowka<br>
+								<input type="radio" name="dropCategory" value="Karta platnicza"> Karta płatnicza <br>
+								<input type="radio" name="dropCategory" value="Karta kredytowa"> Karta kredytowa<br>
 							</div>
 							<br>
 							<input type="text" class="modalInputText" name="changeCategory" placeholder="sposób płatności" onfocus="this.placeholder=''" onblur="this.placeholder='sposób płatności'">
