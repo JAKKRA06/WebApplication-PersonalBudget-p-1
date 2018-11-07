@@ -144,7 +144,7 @@
 			   
                         <!--1 AKŁADKA-->
                     <article class="tab-content">
-                        <article class="tab-pane active" id="mainpage">
+                        <article class="tab-pane " id="mainpage">
                			<?php
 							if(isset($_SESSION['income_added']))
 							{
@@ -293,7 +293,7 @@
                               </article>
                               
                               <article class=" row">
-                                <label for="data" class="col-sm-4 col-form-label">Data</label>
+                                <label for="currentDateEx" class="col-sm-4 col-form-label">Data</label>
                                 <div class="col-sm-8">
                                   <input type="date" name="expense_date" id="currentDateEx" class="form-control">
 									<?php
@@ -307,8 +307,8 @@
                               </article>
                               
                                 <article class="row">
-                                  <label class="col-sm-4">Sposób płatności</label>
-                                  <div class="col-sm-8">
+                                  <label class="col-sm-6">Sposób płatności</label>
+                                  <div class="col-sm-6">
                                   <select class="custom-select" name="expense_payment_method">
                                      <option selected >Rozwiń</option>
                                         <option value="Gotowka">Gotówka</option>
@@ -1060,57 +1060,319 @@ if (isset($_SESSION['currentMonth']))
                     
                        <!--5 AKŁADKA-->
 
-					<article class="tab-pane" id="settings">
+					<article class="tab-pane active" id="settings">
 						<div class="row">
 							<div class="col-sm-12">
-							<!--
-								<div class="edition">
+								<section>	
+									<h3>EDYCJA PROFILU UŻYTKOWNIKA</h3>
+								</section>
 
-									<div class="module">
-										<button id="unfold" class="btn btn-primary button module-button">nazwę uzytkownika</button>
-										<input type="text" class="module-content" style="display:none">
+							</div>
+						</div>	
 						
-									
-						
-										<button id="unfold1" class="btn btn-success button module-button">e-mail</button>
-										<input type="text" class="module-content" style="display:none">
-						
-						
-										<button id="unfold2" class="btn btn-danger button module-button">hasło</button>
-										<input type="text" class="module-content" style="display:none">
+						<article class="editionUser">
+							<form>
+								<div class="row">
+									<label class="col-sm-6">Ustaw nową nazwę</label>
+									<div class="col-sm-6">
+										<input type="text" name="newLogin" class="modalInputText" placeholder="login" onfocus="this.placeholder=''" onblur="this.placeholder='login'">
 									</div>
-							
 								</div>
-<script> 
-const btn = document.getElementById("unfold");
-
-if(document.getElementByClassName('btn').onclick)
-{
-	const textCnt = btn.nextElementSibling;
-
-
-btn.addEventListener("click", showInput, false);  
-  
-
-function showInput() {
-	if (textCnt.style.display === "none") {
-		textCnt.style.display = "block";
-	} else {
-		textCnt.style.display = "none";
-	}
-}
-</script>
+								
+								<div class="row">
+									<label class="col-sm-6">Ustaw nowe hasło</label>
+									<div class="col-sm-6">
+										<input type="password" name="newPassword" class="modalInputText"  placeholder="hasło" onfocus="this.placeholder=''" onblur="this.placeholder='hasło'">
+									</div>							
+								</div>
+								
+								<div class="row">
+									<label class="col-sm-6">Ustaw nowy e-mail</label>
+									<div class="col-sm-6">
+										<input type="text" name="newEmail" class="modalInputText" placeholder="e-mail" onfocus="this.placeholder=''" onblur="this.placeholder='e-mail'">
+									</div>
+								</div>
+								
+								<div class="col-sm-12">
+									<button class="btn btn-success" type="submit">Zatwierdź zmiany</button>
+								</div>
+							</form>
+						</article>
+	
+								
+						<div class="row">
+							<div class="col-sm-4">
+								<article class="edition">
+									<p style="text-align: center;">PRZYCHODY</P>
+										<button type="button" id="editionButtons" class="btn btn-danger"  data-toggle="modal" data-target="#modalDropIncome">Usuń kategorię</button>
+										<button type="button" id="editionButtons" class="btn btn-success"  data-toggle="modal" data-target="#modalAddIncome">Dodaj nową kategorię</button>
+										<button type="button" id="editionButtons" class="btn btn-primary"  data-toggle="modal" data-target="#modalChangeIncome">Zmień nazwę kategorii</button>
+								</article>
+							</div>
 							
-							-->
-							
+							<div class="col-sm-4">
+								<article class="edition">
+									<p style="text-align: center;">WYDATKI</P>
+										<button type="button" id="editionButtons" class="btn btn-danger"  data-toggle="modal" data-target="#modalDropExpense">Usuń kategorię</button>
+										<button type="button" id="editionButtons" class="btn btn-success"  data-toggle="modal" data-target="#modalAddExpense">Dodaj nową kategorię</button>
+										<button type="button" id="editionButtons" class="btn btn-primary"  data-toggle="modal" data-target="#modalChangeExpense">Zmień nazwę kategorii</button>
+								</article>
+							</div>
+						
+							<div class="col-sm-4">
+								<article class="edition">
+									<p style="text-align: center;">METODY PŁATNOŚCI</P>
+										<button type="button" id="editionButtons" class="btn btn-danger"  data-toggle="modal" data-target="#modalDropPayment">Usuń metodę płatności</button>
+										<button type="button" id="editionButtons" class="btn btn-success"  data-toggle="modal" data-target="#modalAddPayment">Dodaj nową metodę płatności</button>
+										<button type="button" id="editionButtons" class="btn btn-primary"  data-toggle="modal" data-target="#modalChangePayment">Zmień nazwę metody płatności</button>
+								</article>
 							</div>
 						</div>
+				
 					</article>
 
-
-				   
-
 		 </article>
+					
+					
+					<!-- Modal Expenses -->
+  <div class="modal fade" id="modalDropExpense" role="dialog">
+		<div class="modal-dialog">
+		
+		  <!-- Modal content-->
+			  <div class="modal-content">
+					<div class="modal-header">
+					  <h4 class="modal-title">Usuń kategorię wydatku:</h4>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="modalForm">
+								<input type="radio" name="dropCategory">Mieszkanie<br>
+								<input type="radio" name="dropCategory1">Jedzenie<br>
+								<input type="radio" name="dropCategory2">Transport<br>
+								<input type="radio" name="dropCategory3"> Telekomunikacja<br>
+								<input type="radio" name="dropCategory3"> Ksiazki<br>
+								<input type="radio" name="dropCategory3"> Higiena<br>
+								<input type="radio" name="dropCategory3"> Ubranie<br>
+								<input type="radio" name="dropCategory3"> Opieka zdrowotna<br>
+								<input type="radio" name="dropCategory3"> Dzieci<br>
+								<input type="radio" name="dropCategory3"> Rozrywka<br>
+								<input type="radio" name="dropCategory3"> Wycieczka<br>
+								<input type="radio" name="dropCategory3"> Oszczednosci<br>
+								<input type="radio" name="dropCategory3"> Na zlota jesien, czyli emeryture<br>
+								<input type="radio" name="dropCategory3"> Darowizna<br>
+								<input type="radio" name="dropCategory3"> Splata dlugow<br>
+								<input type="radio" name="dropCategory3"> Inne wydatki<br>
+							</div>
+							<button type="submit" class="btn btn-success">Potwierdź</button>
+						</form>
+					</div>
+			  </div>
+		  
+		</div>
+  </div>
+  
+   <div class="modal fade" id="modalChangeExpense" role="dialog">
+		<div class="modal-dialog">
+		
+		  <!-- Modal content-->
+			  <div class="modal-content">
+					<div class="modal-header">
+					  <h4 class="modal-title">Zmień nazwę kategorii wydatku:</h4>
+					</div>
+					<div class="modal-body" style="text-align: center;">
+					  <p><b>Krok 1.</b> Wybierz spośród dostępnych kategorii jedną, <br> której chcesz zmienić nazwę.</p>
+					  <p><b>Krok 2.</b> W polu poniżej wpisz nową nazwę kategorii.</p>
+						<form>
+							<div class="modalForm">
+								<input type="radio" name="dropCategory">Mieszkanie<br>
+								<input type="radio" name="dropCategory1">Jedzenie<br>
+								<input type="radio" name="dropCategory2">Transport<br>
+								<input type="radio" name="dropCategory3"> Ksiazki<br>
+								<input type="radio" name="dropCategory3"> Telekomunikacja<br>
+								<input type="radio" name="dropCategory3"> Higiena<br>
+								<input type="radio" name="dropCategory3"> Ubranie<br>
+								<input type="radio" name="dropCategory3"> Opieka zdrowotna<br>
+								<input type="radio" name="dropCategory3"> Dzieci<br>
+								<input type="radio" name="dropCategory3"> Rozrywka<br>
+								<input type="radio" name="dropCategory3"> Wycieczka<br>
+								<input type="radio" name="dropCategory3"> Oszczednosci<br>
+								<input type="radio" name="dropCategory3"> Na zlota jesien, czyli emeryture<br>
+								<input type="radio" name="dropCategory3"> Darowizna<br>
+								<input type="radio" name="dropCategory3"> Splata dlugow<br>
+								<input type="radio" name="dropCategory3"> Inne wydatki<br>
+							</div>
+							<br>
+							<input type="text"  class="modalInputText" name="changeCategory" placeholder="nazwa kategorii" onfocus="this.placeholder=''" onblur="this.placeholder='nazwa kategorii'">
+							<button type="submit" class="btn btn-success">Potwierdź</button>
+						</form>
+					</div>
+			  </div>
+		  
+		</div>
+  </div>
+  
+   <div class="modal fade" id="modalAddExpense" role="dialog">
+		<div class="modal-dialog">
+		
+		  <!-- Modal content-->
+			  <div class="modal-content">
+					<div class="modal-header">
+					  <h4 class="modal-title">Dodaj nową kategorię wydatku:</h4>
+					</div>
+					<div class="modal-body">
+						<form>
+							<input type="text" class="modalInputText" name="" placeholder="nazwa kategorii" onfocus="this.placeholder=''" onblur="this.placeholder='nazwa kategorii'">
+							<button type="submit" class="btn btn-success">Potwierdź</button>
+						</form>
+					</div>
+			  </div>
+		  
+		</div>
+  </div>
+  
+
+  					<!-- Modal Income -->
+  <div class="modal fade" id="modalAddIncome" role="dialog">
+		<div class="modal-dialog">
+		
+		  <!-- Modal content-->
+			  <div class="modal-content">
+					<div class="modal-header">
+					  <h4 class="modal-title">Dodaj nową kategorię przychodu:</h4>
+					</div>
+					<div class="modal-body">
+						<form>
+							<input type="text" class="modalInputText" name="addCategory" placeholder="nazwa kategorii" onfocus="this.placeholder=''" onblur="this.placeholder='nazwa kategorii'">
+							<button type="submit" class="btn btn-success">Potwierdź</button>
+						</form>
+					</div>
+			  </div>
+		  
+		</div>
+  </div>
+  
+   <div class="modal fade" id="modalDropIncome" role="dialog">
+		<div class="modal-dialog">
+		
+		  <!-- Modal content-->
+			  <div class="modal-content">
+					<div class="modal-header">
+					  <h4 class="modal-title">Usuń kategorię przychodu:</h4>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="modalForm">
+								<input type="radio" name="dropCategory">Wynagrodzenie<br>
+								<input type="radio" name="dropCategory1">Odsetki bankowe<br>
+								<input type="radio" name="dropCategory2">Sprzedaz na Allegro<br>
+								<input type="radio" name="dropCategory3"> Inne<br>
+							</div>
+							<button type="submit" class="btn btn-success">Potwierdź</button>
+						</form>
+					</div>
+			  </div>
+		  
+		</div>
+  </div>
+  
+   <div class="modal fade" id="modalChangeIncome" role="dialog">
+		<div class="modal-dialog">
+		
+		  <!-- Modal content-->
+			  <div class="modal-content">
+					<div class="modal-header">
+					  <h4 class="modal-title">Zmień nazwę kategorii przychodu:</h4>
+					</div>
+					<div class="modal-body">
+					<p><b>Krok 1.</b> Wybierz spośród dostępnych kategorii jedną, <br> której chcesz zmienić nazwę.</p>
+					  <p><b>Krok 2.</b> W polu poniżej wpisz nową nazwę kategorii.</p>
+						<form>
+							<div class="modalForm">
+								<input type="radio" name="dropCategory">Wynagrodzenie<br>
+								<input type="radio" name="dropCategory1">Odsetki bankowe<br>
+								<input type="radio" name="dropCategory2">Sprzedaz na Allegro<br>
+								<input type="radio" name="dropCategory3"> Inne<br>
+							</div>
+							<br>
+							<input type="text" class="modalInputText" name="changeCategory" placeholder="nazwa kategorii" onfocus="this.placeholder=''" onblur="this.placeholder='nazwa kategorii'">
+							<button type="submit" class="btn btn-success">Potwierdź</button>
+						</form>
+					</div>
+			  </div>
+		  
+		</div>
+  </div>
+
+	 				<!-- Modal Payment methods -->		
+  <div class="modal fade" id="modalAddPayment" role="dialog">
+		<div class="modal-dialog">
+		
+		  <!-- Modal content-->
+			  <div class="modal-content">
+					<div class="modal-header">
+					  <h4 class="modal-title">Dodaj nową metodę płatności:</h4>
+					</div>
+					<div class="modal-body">
+						<form>
+							<input type="text" class="modalInputText" name="" placeholder="sposób płatności" onfocus="this.placeholder=''" onblur="this.placeholder='sposób płatności'">
+							<button type="submit" class="btn btn-success">Potwierdź</button>
+						</form>
+					</div>
+			  </div>
+		  
+		</div>
+  </div>
+  
+   <div class="modal fade" id="modalDropPayment" role="dialog">
+		<div class="modal-dialog">
+		
+		  <!-- Modal content-->
+			  <div class="modal-content">
+					<div class="modal-header">
+					  <h4 class="modal-title">Usuń metodę płatności:</h4>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="modalForm">
+								<input type="radio" name="dropCategory">Gotowka<br>
+								<input type="radio" name="dropCategory1">Karta platnicza<br>
+								<input type="radio" name="dropCategory2">Karta kredytowa<br>
+							</div>
+							<button type="submit" class="btn btn-success">Potwierdź</button>
+						</form>
+					</div>
+			  </div>
+		  
+		</div>
+  </div>
+  
+   <div class="modal fade" id="modalChangePayment" role="dialog">
+		<div class="modal-dialog">
+		
+		  <!-- Modal content-->
+			  <div class="modal-content">
+					<div class="modal-header">
+					  <h4 class="modal-title">Zmień nazwę metody płatności:</h4>
+					</div>
+					<div class="modal-body">
+					<p><b>Krok 1.</b> Wybierz spośród dostępnych sposobów jeden, <br> któremu chcesz zmienić nazwę.</p>
+					  <p><b>Krok 2.</b> W polu poniżej wpisz nową nazwę metody płatności.</p>
+						<form>
+							<div class="modalForm">
+								<input type="radio" name="dropCategory">Gotowka<br>
+								<input type="radio" name="dropCategory1">Karta platnicza <br>
+								<input type="radio" name="dropCategory3"> Karta kredytowa<br>
+							</div>
+							<br>
+							<input type="text" class="modalInputText" name="changeCategory" placeholder="sposób płatności" onfocus="this.placeholder=''" onblur="this.placeholder='sposób płatności'">
+							<button type="submit" class="btn btn-success">Potwierdź</button>
+						</form>
+					</div>
+			  </div>
+		  
+		</div>
+  </div>
+
 					
        </div> 
        
