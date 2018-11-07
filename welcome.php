@@ -83,7 +83,7 @@
                <div class="col-sm-12">
                    <section class="description">
                        <h1>WITAJ !</h1><br/><p> Dziekujemy za rejestrację ! <br/> <br/>Aby w pełni cieszyć się swoimi oszczędnościami przejdź do swojego profilu !</p>
-                       <button class="btn btn-lg btn-success"><a href="logowanie.php"><i class="icon-logout"></i>   ZALOGUJ SIĘ <br/>NA SWOJE KONTO</a></button>
+                       <button class="btn btn-lg btn-success"><a href="logInPage.php"><i class="icon-logout"></i>   ZALOGUJ SIĘ <br/>NA SWOJE KONTO</a></button>
                    </section>
                </div>
            </div>

@@ -51,7 +51,7 @@
 			
 		// kategorii
 	
-			$expense_category=array("Mieszkanie", "Kredyt", "Transport", "Telekomunikacja", "Opieka zdrowotna", "Ubranie", "Higiena", "Dzieci", "Rozrywka", "Wycieczka", "Ksiazki", "Oszczednosci", "Splta dlugow", "Darowizna", "Na zlota jesien, czyli emeryture", "Inne wydatki");
+			$expense_category=array("Mieszkanie", "Jedzenie", "Transport", "Telekomunikacja", "Opieka zdrowotna", "Ubranie", "Higiena", "Dzieci", "Rozrywka", "Wycieczka", "Ksiazki", "Oszczednosci", "Splta dlugow", "Darowizna", "Na zlota jesien, czyli emeryture", "Inne wydatki");
 			
 			if (!in_array($_POST['expense_category_select'], $expense_category))
 			{

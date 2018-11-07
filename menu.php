@@ -73,43 +73,31 @@
 	
 	<script type="text/jscript" src="https://www.gstatic.com/charts/loader.js"></script>
   
-<script>
-$(function() {
-    $('#myTopnav').each(function() {
-        const $a = $(this).find('a'); //pobieram wszystkie linki-zakładki
 
-        //po kliknięciu na link...
-        $a.on('click', function(e) {
-            //podstawiamy pod zmienną $this kliknięty link
-            const $this = $(this);
-
-            //pobieramy href klikniętego linka
-            const href = $this.attr('href');
-            //pobieramy treść na którą wskazuje link
-            const $target = $(href);
-
-            //jeżeli ta treść w ogóle istnieje...
-            if ($target.length) {
-                e.preventDefault(); //przerwij domyślną czynność jeżeli istnieje zawartość zakładki - inaczej niech dziala jak link
-
-                //usuwamy z sąsiednich linków klasę active
-                $this.siblings('a').removeClass('active');
-                //klikniętemu linkowi dajemy klasę active
-                $this.addClass('active');
-
-                //podobne działanie robimy dla treści tabów
-                $target.siblings('.tab-pane').removeClass('active');
-                $target.addClass('active');
-            }
-        });
-    });
-});
-  </script>
 </head>
 <body>
 
     <main>
-	
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Wybierz przedział czasowy: </h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  </div>
+		  <div class="modal-body">
+				<form method="post" action="non_standard.php">
+					Od: <input type="date" id="startDate" name="startDate" value="startDate"> <br/><br/>
+					do: <input type="date" id="lastDate" name ="lastDate" value="lastDate">
+
+					<button class=" btn btn-primary" type="submit"> Potwierdź </button>
+				</form>
+		  </div>
+		</div>
+	</div>
+</div>
+					
+					
         <div class="container">
 		
            <div class="row">
@@ -133,7 +121,6 @@ $(function() {
               <div class="col-sm-12">
                   <section id="hello"><h1>Witaj !</h1></section>
               </div>
-              
 
                <div class="col-sm-12">
                    <nav class="menu">
@@ -154,6 +141,7 @@ $(function() {
                        </article>  
                    </nav>                       
                </div>
+			   
                         <!--1 AKŁADKA-->
                     <article class="tab-content">
                         <article class="tab-pane active" id="mainpage">
@@ -168,6 +156,11 @@ $(function() {
 							{
 								echo '<div class="expense_success">'.$_SESSION['expense_added'].'</div>';
 								unset($_SESSION['expense_added']);
+							}
+							
+							if (isset($_SESSION['currentYear']) || (isset($_SESSION['previousMonth'])) || (isset($_SESSION['non_standard'])) || (isset($_SESSION['currentMonth'])))
+							{
+								 echo "Przejdź do zakładki ---> Przeglądaj bilans <---".'<br/>';
 							}
 							
 						?>
@@ -494,18 +487,16 @@ $(function() {
 							
 							$answer4 = $connection->query("SELECT amount, date_of_income, income_comment FROM `incomes` WHERE date_of_income BETWEEN '$dateS' AND '$dateL' AND user_id = '$sign_in_user_id' AND income_category_assigned_to_user_id = '$income_id_category' ORDER BY amount DESC");
 
-				
-				
 							echo '<div class="category_list_name_income">'.$name.':'.' '.$SUM_income.'</div>'.'<br/>';
 							while($row3 = $answer4->fetch_assoc())
 							{
 									
-							$date_income = $row3['date_of_income'];
-							$amount_income = $row3['amount'];
-							$comment_income = $row3['income_comment'];
+								$date_income = $row3['date_of_income'];
+								$amount_income = $row3['amount'];
+								$comment_income = $row3['income_comment'];
 								echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$amount_income.' 	'.$date_income.' '.'<i>'.$comment_income.'</i>'.'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
 							}
-								echo '<br/>';
+							echo '<br/>';
 						}
 					}
 				}
@@ -560,18 +551,15 @@ $(function() {
 							
 							$answer4 = $connection->query("SELECT amount, date_of_income, income_comment FROM `incomes` WHERE date_of_income BETWEEN '$previous_dateS' AND '$previous_dateL' AND user_id = '$sign_in_user_id' AND income_category_assigned_to_user_id = '$income_id_category' ORDER BY amount DESC");
 
-				
-				
 							echo '<div class="category_list_name_income">'.$name.':'.' '.$SUM_income.'</div>'.'<br/>';
 							while($row3 = $answer4->fetch_assoc())
 							{
-									
-							$date_income = $row3['date_of_income'];
-							$amount_income = $row3['amount'];
-							$comment_income = $row3['income_comment'];
+								$date_income = $row3['date_of_income'];
+								$amount_income = $row3['amount'];
+								$comment_income = $row3['income_comment'];
 								echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$amount_income.' 	'.$date_income.' '.'<i>'.$comment_income.'</i>'.'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
 							}
-								echo '<br/>';
+							echo '<br/>';
 						}
 					}
 				}
@@ -625,17 +613,16 @@ $(function() {
 							
 							$answer4 = $connection->query("SELECT amount, date_of_income, income_comment FROM `incomes` WHERE date_of_income BETWEEN '$currentYear_dateS' AND '$currentYear_dateL' AND user_id = '$sign_in_user_id' AND income_category_assigned_to_user_id = '$income_id_category' ORDER BY amount DESC");
 
-				
 							echo '<div class="category_list_name_income">'.$name.':'.' '.$SUM_income.'</div>'.'<br/>';
 							while($row3 = $answer4->fetch_assoc())
 							{
 									
-							$date_income = $row3['date_of_income'];
-							$amount_income = $row3['amount'];
-							$comment_income = $row3['income_comment'];
+								$date_income = $row3['date_of_income'];
+								$amount_income = $row3['amount'];
+								$comment_income = $row3['income_comment'];
 								echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$amount_income.' 	'.$date_income.' '.'<i>'.$comment_income.'</i>'.'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
 							}
-								echo '<br/>';
+							echo '<br/>';
 						}
 					}
 				}
@@ -688,18 +675,16 @@ $(function() {
 							
 							$answer4 = $connection->query("SELECT amount, date_of_income, income_comment FROM `incomes` WHERE date_of_income BETWEEN '$non_standard_dateStart' AND '$non_standard_dateLast' AND user_id = '$sign_in_user_id' AND income_category_assigned_to_user_id = '$income_id_category' ORDER BY amount DESC");
 
-				
-				
 							echo '<div class="category_list_name_income">'.$name.':'.' '.$SUM_income.'</div>'.'<br/>';
 							while($row3 = $answer4->fetch_assoc())
 							{
 									
-							$date_income = $row3['date_of_income'];
-							$amount_income = $row3['amount'];
-							$comment_income = $row3['income_comment'];
+								$date_income = $row3['date_of_income'];
+								$amount_income = $row3['amount'];
+								$comment_income = $row3['income_comment'];
 								echo '<div class="category_list"><i class="icon-bank"></i>'. ' ' .$amount_income.' 	'.$date_income.' '.'<i>'.$comment_income.'</i>'.'<i class="icon-pencil"></i><i class="icon-trash"></i></div>'.'<br/>';
 							}
-								echo '<br/>';
+							echo '<br/>';
 						}
 					}
 				}
@@ -1064,46 +1049,69 @@ if (isset($_SESSION['currentMonth']))
 										</script>
 										
 									<div id="chartContainer" style="height: 450px; width: 100%;"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>	
-									</div>
+											<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>	
                                 </article>
-                            </div>
-                        </div>
-                
-             </article>
+							</div>
+                         </div>
+					</article>
+                   
+
 				
                     
                        <!--5 AKŁADKA-->
 
-			<article class="tab-pane" id="settings">
-				
-		
-			
-			
-			</article>
-           </article>
+					<article class="tab-pane" id="settings">
+						<div class="row">
+							<div class="col-sm-12">
+							<!--
+								<div class="edition">
 
-		   
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-			  <div class="modal-dialog modal-sm" role="document">
-					<div class="modal-content">
-					  <div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">Wybierz przedział czasowy: </h4>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					  </div>
-					  <div class="modal-body">
-							<form method="post" action="non_standard.php">
-								Od: <input type="date" id="startDate" name="startDate" value="startDate"> <br/><br/>
-								do: <input type="date" id="lastDate" name ="lastDate" value="lastDate">
+									<div class="module">
+										<button id="unfold" class="btn btn-primary button module-button">nazwę uzytkownika</button>
+										<input type="text" class="module-content" style="display:none">
+						
+									
+						
+										<button id="unfold1" class="btn btn-success button module-button">e-mail</button>
+										<input type="text" class="module-content" style="display:none">
+						
+						
+										<button id="unfold2" class="btn btn-danger button module-button">hasło</button>
+										<input type="text" class="module-content" style="display:none">
+									</div>
+							
+								</div>
+<script> 
+const btn = document.getElementById("unfold");
 
-								<button class=" btn btn-primary" type="submit"> Potwierdź </button>
-							</form>
-					  </div>
-					</div>
-				</div>
+if(document.getElementByClassName('btn').onclick)
+{
+	const textCnt = btn.nextElementSibling;
 
-			</div>
-			
+
+btn.addEventListener("click", showInput, false);  
+  
+
+function showInput() {
+	if (textCnt.style.display === "none") {
+		textCnt.style.display = "block";
+	} else {
+		textCnt.style.display = "none";
+	}
+}
+</script>
+							
+							-->
+							
+							</div>
+						</div>
+					</article>
+
+
+				   
+
+		 </article>
+					
        </div> 
        
     </main>
