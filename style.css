@@ -301,7 +301,7 @@ input[type=password]:focus
 
 .title
 {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-size: 24px;
     font-weight: 600;
 }
@@ -454,7 +454,6 @@ td p
 {
     text-align: center;
     color: green;
-    margin-bottom: 10px;
 	font-size: 20px;	
 }
 
@@ -576,7 +575,7 @@ border: 1px solid #000;}
 {
 	border: 1px solid #000;
 	border-radius: 20px;
-	width: 300px;
+	width: auto;
 	text-align: left;
 	padding: 15px;
 	

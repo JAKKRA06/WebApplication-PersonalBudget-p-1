@@ -8,7 +8,7 @@
 			exit();
 		}
 		
-		require_once "connect.php";
+		require_once "connect_Local.php";
 
 		mysqli_report(MYSQLI_REPORT_STRICT);
 		

@@ -51,7 +51,7 @@
 		
 		//spr captcha
 		
-		$secret = "6LcxbnEUAAAAANEc8gDDoETqH_xtAFGRCo-3V_sF";
+		$secret = "6Le2p3kUAAAAAJFzpH2wDKJPRxIlfoqJdyqQ8WIk";
 		
 		$check = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
 		
@@ -70,7 +70,7 @@
 		$_SESSION['R_email'] = $email;
 		$_SESSION['R_password'] = $password;
 		
-		require_once "connect.php";
+		require_once "connect_Local.php";
 		
 		mysqli_report(MYSQLI_REPORT_STRICT);
 		try 
@@ -261,7 +261,8 @@
 									unset($_SESSION['e_password']);
 								}
 							?>
-							<div class="g-recaptcha" data-sitekey="6LcxbnEUAAAAAOn7v_ajv47yLEBrkKaGUISkXUXm" style="margin-top: 20px;"></div>
+							<br>
+							<div class="g-recaptcha" data-sitekey="6Le2p3kUAAAAAGBxScEclzZN-3YAGoAaZbqlRBwn"></div>
 							<?php
 								if(isset($_SESSION['e_boot']))
 								{
